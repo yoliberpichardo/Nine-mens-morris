@@ -48,4 +48,5 @@ class Board:
 table_p = Board()
 table_p.table()
 table_p.move_piece()
+
 print(table_p.view())
