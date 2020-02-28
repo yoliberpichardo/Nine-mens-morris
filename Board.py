@@ -39,25 +39,5 @@ class Board:
         self.view_board += self.coordinate
         return self.view_board
 
-    def  move_piece(self):
-        for row in self.board:
-            for box in row:
-                if isinstance(box,list):
-                    box.pop()
-                    box += 
-                elif isinstance(box,str):
-                    box = box
-                else:
-                    print('nose puede mover aqui ya hay una piesa')
-        return self.board
 
 
- 
-
-
-table_p = Board()
-table_p.table()
-table_p.move_piece()
-print(table_p.view())
-player1 = Piece('●')
-player2 = Piece('O')
