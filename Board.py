@@ -1,43 +1,50 @@
 from pieces import Piece
-piece = Piece(input('enter one color: ') )
+piece = Piece()
 class Board:
     def __init__(self):
         self.board = []
+        self.piece_black = piece.quant_piece()
+        self.piece_white = piece.quant_piece()
         self.view_board = ''
-        self.coordinate = "   a  b  c  d  e  f  g"
+        self.coordinate = "     0    1     2      3      4    5    6"
 
     
     def table(self):
 
-        self.board = [[ [' '],'-------------',[' '],'-----------',[' '] ],
+        self.board = [[ [' '],'-------------',[' '],'------------',[' '] ],
                                             
-                     ['     ', [' '],'--------', [' '],'-------',[' '],'   '],
+                     ['  |  ', [' '],'--------', [' '],'-------',[' '],'  | '],
                             
-                     ['           ',[' '],'--',[' '],'--',[' '],'           '],
+                     ['  |    |   ',[' '],'--',[' '],'--',[' '],'  |    |   '],
 
-                     [[' '],'',[' '],' ',[' '], '         ',[' '],'',[' '],'',[' ']      ],
+                     [[' '],'',[' '],' ',[' '], '         ',[' '],'',[' '],'',[' ']],
 
-                     ['           ',[' '],'--',[' '],'--',[' '],'              '],                       
+                     ['  |    |   ',[' '],'--',[' '],'--',[' '],'  |    |     '],                       
 
-                     ['     ',[' '],'--------', [' '],'-------',[' '],'    '],
+                     ['  |  ',[' '],'--------', [' '],'-------',[' '],'  | '],
 
-                    [ '  ',[' '],'-------------',[' '],'------------',[' '] ]     ] 
+                    [ '',[' '],'-------------',[' '],'------------',[' '] ]     ] 
+
+
     
     def view(self):
         cont = 0
         for element in self.board:
             self.view_board += '\n'
+            self.view_board += str(cont) + '  '
+            cont += 1
             for row in element:
                 self.view_board += str(row)
+        self.view_board += '\n'
+        self.view_board += self.coordinate
         return self.view_board
 
     def  move_piece(self):
-        self.piece_color = piece.Pieces_color()
         for row in self.board:
             for box in row:
-                if isinstance(box,list) and box == [' ']:
+                if isinstance(box,list):
                     box.pop()
-                    box += self.piece_color
+                    box += 
                 elif isinstance(box,str):
                     box = box
                 else:
@@ -45,8 +52,12 @@ class Board:
         return self.board
 
 
+ 
+
+
 table_p = Board()
 table_p.table()
 table_p.move_piece()
-
 print(table_p.view())
+player1 = Piece('●')
+player2 = Piece('O')

@@ -1,11 +1,10 @@
 class Piece:
-    def __init__(self,color):
-        self.color = color
-        self.character = ['●','O'] 
+    def __init__(self,symbol):
+        self.symbol = symbol
 
-    def Pieces_color(self):
-        if self.color == 'black':
-            return self.character[0]
-        elif self.color == 'white':
-            return self.character[1]
+    def quant_piece(self):
+        quantity = self.symbol * 9
+        return quantity
 
+
+    
