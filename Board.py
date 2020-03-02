@@ -1,10 +1,15 @@
 from pieces import Piece
-piece = Piece()
+from os import system
+
+player1 = Piece('●')
+player2 = Piece('O')
 class Board:
-    def __init__(self):
+    def __init__(self,player):
+        self.player = player
         self.board = []
-        self.piece_black = piece.quant_piece()
-        self.piece_white = piece.quant_piece()
+        # self.piece_black = piece.quant_piece()
+        # self.piece_white = piece.quant_piece()
+        self.matriz = []
         self.view_board = ''
         self.coordinate = "     0    1     2      3      4    5    6"
 
@@ -38,6 +43,34 @@ class Board:
         self.view_board += '\n'
         self.view_board += self.coordinate
         return self.view_board
+    
+    def input_coordinate(self,player):
+        row_input = input('enter row: ')
+        column_input =input('enter column: ')
+        check = '0123456'
+
+        while row_input or column_input not in check and row_input or column_input == '':
+            print('no se puede introducir letras, solo numeros del 0 al 6')
+            row_input = input('enter row: ')
+            column_input = input('enter column: ')
+
+        self.matriz = self.board[int(row_input)][int(column_input)]
+        if self.player.quant <= 9 :
+            while self.player.quant != 0:
+                if isinstance(self.matriz,list):
+                    self.matriz.pop()
+                    self.matriz.append(self.player.symbol*1)
+                    self.player.quant -= 1
+                else:
+                    print('no se puede colocar aqui vuelva ha introducir las coordenadas')
+                    row_input = input('enter row: ')
+                    column_input =input('enter column: ')
+                    self.matriz = self.board[row_input][column_input]
+            return self.board
+   
 
 
-
+table_p = Board(player1)
+table_p.table()
+table_p.input_coordinate(player1)
+print(table_p.view())
