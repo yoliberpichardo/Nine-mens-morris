@@ -4,27 +4,28 @@ class Player:
     def __init__(self,nombre):
         self.nombre = nombre
         self.turn = 0
+        self.tokens = None
         # self.characte = ['◉',' ◎']
         
 
     def player1(self,nombre):
         self.nombre = input('player1 enter you name: ') 
         self.turn = 1
-        tokens = Piece('◉ ')
-        return tokens.quant_piece()
+        self.tokens = Piece('◉')
+        print(self.tokens.quant_piece())
+        return self.tokens.symbol * 1
 
     def player2(self,nombre):
         self.nombre = input('player2 enter you name: ') 
         self.turn = 2
-        token = Piece('◎ ')
-        return token.quant_piece()
+        self.tokens = Piece('◎')
+        print(self.tokens.quant_piece())
+        return self.tokens.symbol * 1
 
         
-    # def change_turn(self,turn):
+    
         
-p1 = Player('nombre')  
-print(p1.player1('nombre'))
-print(p1.player2(' '))
+
 
      
     
