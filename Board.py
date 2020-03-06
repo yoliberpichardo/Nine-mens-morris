@@ -65,14 +65,16 @@ class Board:
             self.matriz.pop()
             self.matriz.append(character)
             return (self.matriz)
-            
+    
+    
+    
                 
     
     
    
 table_p = Board()
 table_p.table()
-table_p.insert_token()
+table_p.insert_token()        
 print(table_p.view())
 
 
