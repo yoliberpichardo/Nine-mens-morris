@@ -1,4 +1,4 @@
-import os
+from os import system
 from Board import *
 from players import optionPlayer
 character = optionPlayer()
@@ -8,10 +8,12 @@ table_p.table()
 
 
 def action_instance():
-    os.system('cls')
+    system('cls')
     table_p.view()
+    # system('cls')
     table_p.insert_token(character) # El metodo insert token de tablero toma como parametro character que proviene de la clase player
-    os.system('cls')
+    
+  
     
     action_instance() 
 action_instance()

@@ -20,7 +20,7 @@ def optionPlayer():
         print(colorTokens[valPlayer])
         
         if colorTokens[valPlayer] == '◎':
-            result = Player('player2')
+            return colorTokens[valPlayer - 1]
         return colorTokens[valPlayer]
 
     

@@ -1,9 +1,10 @@
-from players import Player
-result = Player('player1: ')
+from os import system
+from players import *
+result = Player('')
 
 print('Welcome to this famous game called NINE MENS MORRIS')
 print('GAME MODE: 1= PLAYER VS BOOT, OR 2= PLAYER VS PLAYER')
-input()
+input('Press Enter....')
 
 class Board:
     def __init__(self):
@@ -40,22 +41,28 @@ class Board:
                 self.view_board += str(row)
         self.view_board += '\n'
         self.view_board += self.coordinate
-        print(self.view_board)
+        return self.view_board
+        
 
     def input_coordinate(self):
         self.row_input = str(input('Enter the row '+ result.nombre ))
         self.column_input = str(input('Enter the column '+ result.nombre ))
+        
         checks ='0123456'
         for check in checks:
             if self.row_input not in checks or self.column_input not in checks and self.row_input == '' or self.column_input == '':
                 print('You cannot enter letters or digits of two numbers')
-                self.row_input = input('Enter the row: ')
-                self.column_input = input('Enter the column: ') 
-            self.matriz = self.board[int(self.row_input)][int(self.column_input)] 
-            # return self.table()
+                self.row_input = str(input('Enter the row '+ result.nombre ))
+                self.column_input = str(input('Enter the column '+ result.nombre ))
+                system('cls')
+            self.matriz = self.board[int(self.row_input)][int(self.column_input)]
+            system('cls')
             return self.matriz
+            print(self.view())
  # funcion para que el player puda insertar un token
     def insert_token(self, character):
+      
+        self.view_board = ''
         input_piece = self.input_coordinate()
         if input_piece:
             while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
