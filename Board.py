@@ -1,7 +1,7 @@
 from players import *
 from os import system
 
-token = Player(' ')
+token = play
 
 class Board:
     def __init__(self,character):
@@ -29,11 +29,15 @@ class Board:
                      ['  |  ', [' '],'-----', [' '],'-----',[' '],'  | '],
 
                      [ [' '],'-----','-----',[' '],'-----','-----',[' '] ]     ] 
+    
+    
 
     
     def view(self):
         system('cls')
         cont = 0
+        print(token.tokens,token.color_white * token.tokens)
+        print(token.tokens,token.color_black * token.tokens)
         for element in self.board:
             self.view_board += '\n'
             self.view_board += str(cont) + '  '
@@ -72,45 +76,32 @@ class Board:
             self.matriz.append(self.character)
             
             return self.matriz
-        
-            
+
     def change_turn(self):
-        print(self.view())
-        while self.insert_token(self.character):
-            print(self.view()) 
-            self.view_board = ''
-            if self.character == token.colorTokens[0] and self.character != '◎':
-                self.character = token.colorTokens[1]
-                print(self.view())
-                self.view_board = ''
-                return self.insert_token(self.character),self.view_board
-            else:
-                self.character = token.colorTokens[0]
-                print(self.view())
-                self.view_board = ''
-                return self.insert_token(self.character),self.view_board
-    
-
+            while self.character:
+                if self.character == token.color_white :
+                    self.character = token.color_black 
+                    return self.character
+                else:
+                    self.character = token.color_white
+                    return self.character
+                    
     def run_table(self):
-        while token.tokens != 0:
-            
-            if self.change_turn():
-                token.tokens -= 1
+        print(self.view())
+        while (token.tokens ) != 0:
+            if self.insert_token(self.character):
+                self.view_board = ''
+                print(self.view())
                 self.change_turn()
+                token.tokens -= 1
+                self.view_board = ''
             else:
-                print('no cambió de turno')
+                print('no se inserto la pieza')
 
 
-    
    
-            
-
-    
-    
-   
-table_p = Board(token.colorTokens[0])
+table_p = Board(token.color_white)
 table_p.table()
-mapper_tokens()
 table_p.run_table()
 print(table_p.view())
 
