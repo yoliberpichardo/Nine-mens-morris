@@ -36,8 +36,8 @@ class Board:
     def view(self):
         system('cls')
         cont = 0
-        print(token.tokens,token.color_white * token.tokens)
-        print(token.tokens,token.color_black * token.tokens)
+        print(token.tokens_w,token.color_white * token.tokens_w)
+        print(token.tokens_b,token.color_black * token.tokens_b)
         for element in self.board:
             self.view_board += '\n'
             self.view_board += str(cont) + '  '
@@ -81,19 +81,20 @@ class Board:
             while self.character:
                 if self.character == token.color_white :
                     self.character = token.color_black 
+                    token.tokens_b -= 1
                     return self.character
                 else:
                     self.character = token.color_white
+                    token.tokens_w -= 1
                     return self.character
                     
     def run_table(self):
         print(self.view())
-        while (token.tokens ) != 0:
+        while (token.tokens_b + token.tokens_w) != 0:
             if self.insert_token(self.character):
                 self.view_board = ''
                 print(self.view())
                 self.change_turn()
-                token.tokens -= 1
                 self.view_board = ''
             else:
                 print('no se inserto la pieza')
