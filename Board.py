@@ -1,10 +1,5 @@
-from os import system
 from players import *
-result = Player('')
-
-print('Welcome to this famous game called NINE MENS MORRIS')
-print('GAME MODE: 1= PLAYER VS BOOT, OR 2= PLAYER VS PLAYER')
-input('Press Enter....')
+from os import system
 
 class Board:
     def __init__(self,character):
@@ -15,6 +10,7 @@ class Board:
         self.matriz = []
         self.character = character
         self.coordinate = "     0    1    2    3    4    5    6"
+  
     def table(self):  
         self.board = [[ [' '],'-----','-----',[' '],'-----','-----',[' '] ],
                                             
@@ -29,8 +25,10 @@ class Board:
                      ['  |  ', [' '],'-----', [' '],'-----',[' '],'  | '],
 
                      [ [' '],'-----','-----',[' '],'-----','-----',[' '] ]     ] 
-
-    def view(self):
+    
+    
+    def view(self, player):
+        system('cls')
         cont = 0
         print(player.playerList[0].name, player.color_white * player.token_white,'→', player.token_white)
         print(player.playerList[1].name, player.color_black * player.token_black,'→', player.token_black )  
@@ -43,35 +41,31 @@ class Board:
         self.view_board += '\n'
         self.view_board += self.coordinate
         return self.view_board
-        
 
-    def input_coordinate(self):
-        self.row_input = str(input('Enter the row '+ result.nombre ))
-        self.column_input = str(input('Enter the column '+ result.nombre ))
-        
-        checks ='0123456'
-        for check in checks:
-            if self.row_input not in checks or self.column_input not in checks and self.row_input == '' or self.column_input == '':
-                print('You cannot enter letters or digits of two numbers')
-                self.row_input = str(input('Enter the row '+ result.nombre ))
-                self.column_input = str(input('Enter the column '+ result.nombre ))
-                system('cls')
-            self.matriz = self.board[int(self.row_input)][int(self.column_input)]
+    def input_coordinate(self, player):
+        self.row_input = input('Enter the row: ')
+        self.column_input = input('Enter the column: ')    
+        checks = ['0','1','2','3','4','5','6']
+        while self.row_input not in checks or self.column_input not in checks :
+            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+            self.row_input = input('Enter the row: ')
+            self.column_input = input('Enter the column: ')
             system('cls')
-            return self.matriz
-            print(self.view())
- # funcion para que el player puda insertar un token
-    def insert_token(self, character):
-      
-        self.view_board = ''
-        input_piece = self.input_coordinate()
-        if input_piece:
-            while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
-                print('Ohh ray!!, you cannot enter a tab here, re-enter the coordinates...')
-                self.input_coordinate()
-            self.matriz.pop()
-            self.matriz.append(character)
-            return (self.matriz)
+            self.view_board = ''
+            print(self.view(player))
+        self.matriz = self.board[int(self.row_input)][int(self.column_input)]  
+        return self.matriz
+
+    # funcion para que el player puda insertar un token
+    def insert_token(self,character, player):
+        self.input_coordinate(player)
+        system('cls')
+        while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
+            print('You cant enter that piece here, re-enter the coordinates')
+            self.input_coordinate(player)  
+        self.matriz.pop()
+        self.matriz.append(self.character)
+        return self.matriz
 
     def change_turn(self, player):
             while self.character:
