@@ -1,27 +1,17 @@
-<<<<<<< HEAD
-=======
-# from Board import Board
-# from pieces import Piece
-# from os import system
+from Board import *
+from players import *
 
+play = Player('')
+print('Welcome to the famous game NINE MENS MORRIS !!'.upper())
+print('The gameplay is: 1 → player vs boot, 2 → player vs player'.upper())
 
-# board = Board()
-# class game:
-#     def __init__(self):
-#         self.game_start = input('press enter for start')
-        
-    
-#     def input_Piece_board(self):
-#         pass
+input('Press Enter...')
 
 
 
-    
+print(mapper_tokens(play))
 
-
-# table_g = game()
-# table_p = Board()
-# table_p.table()
-# table_p.input_coordinate()
-# print(table_p.view())
->>>>>>> d5dbded509927ec6618341ad752e073db903dd10
+table_p = Board(play.color_white)
+table_p.table()
+table_p.run_table(play)
+print(table_p.view(player))
