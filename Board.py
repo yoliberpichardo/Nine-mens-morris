@@ -46,7 +46,7 @@ class Board:
         self.row_input = input('Enter the row: ')
         self.column_input = input('Enter the column: ')    
         checks = ['0','1','2','3','4','5','6']
-        while self.row_input not in checks or self.column_input not in checks :
+        while self.row_input not in checks or self.column_input not in checks:
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
             self.row_input = input('Enter the row: ')
             self.column_input = input('Enter the column: ')
@@ -81,15 +81,16 @@ class Board:
         print(self.view(player))
         if self.character == player.color_white:
             print('TURN OF → {}'.format(player.playerList[0].name))
-        while (player.token_white + player.token_black) != 0:
-            if self.insert_token(self.character, player):
-                if self.character == player.color_white:
-                    player.token_white -= 1
-                self.view_board = ''
-                print(self.view(player))
-                self.change_turn(player)
-                if self.character == player.color_black:
-                    print('TURN OF → {}'.format(player.playerList[1].name)) 
-                else:
-                    print('TURN OF → {}'.format(player.playerList[0].name))
-                self.view_board = ''
+        while(player.token_white + player.token_black) != 0:
+            self.insert_token(self.character, player)
+            if self.character == player.color_white:
+                system('cls')
+                player.token_white -= 1
+            self.view_board = ''
+            print(self.view(player))
+            self.change_turn(player)
+            if self.character == player.color_black:
+                print('TURN OF → {}'.format(player.playerList[1].name))
+            else:
+                print('TURN OF → {}'.format(player.playerList[0].name))
+            self.view_board = ''
