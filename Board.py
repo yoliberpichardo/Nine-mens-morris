@@ -27,11 +27,11 @@ class Board:
                      [ [' '],'-----','-----',[' '],'-----','-----',[' '] ]     ] 
     
     
-    def view(self, player):
+    def view(self):
         system('cls')
         cont = 0
-        print(player.playerList[0].name, player.color_white * player.token_white,'→', player.token_white)
-        print(player.playerList[1].name, player.color_black * player.token_black,'→', player.token_black )  
+        print(playerList[0].name, playerList[0].colorTokens * playerList[0].token,'→', playerList[0].token)
+        print(playerList[1].name, playerList[1].colorTokens * playerList[1].token,'→', playerList[1].token)  
         for element in self.board:
             self.view_board += '\n'
             self.view_board += str(cont) + '  '
@@ -42,7 +42,7 @@ class Board:
         self.view_board += self.coordinate
         return self.view_board
 
-    def input_coordinate(self, player):
+    def input_coordinate(self):
         self.row_input = input('Enter the row: ')
         self.column_input = input('Enter the column: ')    
         checks = ['0','1','2','3','4','5','6']
@@ -52,45 +52,54 @@ class Board:
             self.column_input = input('Enter the column: ')
             system('cls')
             self.view_board = ''
-            print(self.view(player))
+            print(self.view())
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]  
         return self.matriz
 
     # funcion para que el player puda insertar un token
-    def insert_token(self,character, player):
-        self.input_coordinate(player)
+    def insert_token(self,character):
+        self.input_coordinate()
         system('cls')
         while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
+            self.view_board = ''
+            print(self.view())
             print('You cant enter that piece here, re-enter the coordinates')
-            self.input_coordinate(player)  
-        self.matriz.pop()
-        self.matriz.append(self.character)
-        return self.matriz
+            self.input_coordinate()  
+        if self.board[int(self.row_input)][int(self.column_input)] == [' ']:
+            self.matriz.pop()
+            self.matriz.append(self.character)
+            return self.matriz
+        else:
+            self.view_board = ''
+            print(self.view())
+            print('Occupied box, re-enter the coordinates')
+            self.insert_token(character)
 
-    def change_turn(self, player):
+    def change_turn(self):
             while self.character:
-                if self.character == player.color_white:
-                    self.character = player.color_black 
-                    player.token_black -= 1
+                if self.character == playerList[0].colorTokens:
+                    self.character = playerList[1].colorTokens
                     return self.character
                 else:
-                    self.character = player.color_white
+                    self.character = playerList[0].colorTokens
                     return self.character
                     
-    def run_table(self ,player):
-        print(self.view(player))
-        if self.character == player.color_white:
-            print('TURN OF → {}'.format(player.playerList[0].name))
-        while(player.token_white + player.token_black) != 0:
-            self.insert_token(self.character, player)
-            if self.character == player.color_white:
-                system('cls')
-                player.token_white -= 1
-            self.view_board = ''
-            print(self.view(player))
-            self.change_turn(player)
-            if self.character == player.color_black:
-                print('TURN OF → {}'.format(player.playerList[1].name))
+    def run_table(self):
+        print(self.view())
+        if self.character == playerList[0].colorTokens:
+            print('TURN OF → {}'.format(playerList[0].name))
+        while(playerList[0].token + (playerList[1].token)) != 0:
+            self.insert_token(self.character)
+            if self.character == playerList[0].colorTokens:
+                playerList[0].token -= 1
             else:
-                print('TURN OF → {}'.format(player.playerList[0].name))
+                playerList[1].token -= 1
+            self.view_board = ''
+            print(self.view())
+            self.change_turn()
+            if self.character == playerList[1].colorTokens:
+                print('TURN OF → {}'.format(playerList[1].name)) 
+                
+            else:
+                print('TURN OF → {}'.format(playerList[0].name))
             self.view_board = ''
