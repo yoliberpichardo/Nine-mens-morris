@@ -2,7 +2,7 @@
 class Player:
     def __init__(self, name):
         self.name = name
-        self.token = 9
+        self.token = 1
         self.colorTokens = ''
 
 playerList = []
@@ -29,3 +29,5 @@ def mapper_tokens():
         playerList[0].colorTokens =  '◉'
         playerList[1].colorTokens = '◎'
         return playerList[1].colorTokens, playerList[0].colorTokens
+   
+

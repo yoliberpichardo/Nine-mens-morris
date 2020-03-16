@@ -11,5 +11,6 @@ print(mapper_tokens())
 
 table_p = Board(playerList[0].colorTokens)
 table_p.table()
-table_p.run_table()
+table_p.run_move_token()
 print(table_p.view())
+  
