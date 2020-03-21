@@ -2,7 +2,7 @@
 class Player:
     def __init__(self, name):
         self.name = name
-        self.token = 1
+        self.token = 2
         self.colorTokens = ''
 
 playerList = []
@@ -17,7 +17,11 @@ def input_Player():
 def creator_Player():
     verified_entry = input_Player()
     for valPlayer in range(verified_entry):
-        playerList.append(Player(input('Enter the name of player{}: '.format(valPlayer + 1))))
+        input_name = input('Enter the name of player{}: '.format(valPlayer + 1))
+        if len(input_name) == 0 or len(input_name) > 7:
+            print('the name you entered has more than 7 letters or is empty, please re-enter the name')
+            input_name = input('Enter the name of player{}: '.format(valPlayer + 1))
+        playerList.append(Player(input_name))
     return playerList
 
 def mapper_tokens():

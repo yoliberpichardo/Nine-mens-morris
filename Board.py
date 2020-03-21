@@ -200,7 +200,21 @@ class Board:
             print('You cant enter that piece here, re-enter the coordinates')
             self.input_to_move_token()
 
-        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
+        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == ['◉']:
+            self.board[int(self.row_select)][int(self.column_select)].pop()
+            self.board[int(self.row_select)][int(self.column_select)].append(self.token_extracted)
+            self.token_extracted = ''
+            print('la casilla esta ocupada por una ficha blanca, re-enter the coordinates')
+            self.input_to_move_token()
+            
+        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == ['◎']:
+            self.board[int(self.row_select)][int(self.column_select)].pop()
+            self.board[int(self.row_select)][int(self.column_select)].append(self.token_extracted)
+            self.token_extracted = ''
+            print('la casilla esta ocupada por una ficha negra, re-enter the coordinates')
+            self.input_to_move_token()
+
+        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
             self.token_extracted = ''
@@ -211,8 +225,8 @@ class Board:
             self.view_board = ''
             print(self.view())
             print('box incorrect, re-enter the coordinates')
-            self.extract_token()
-    
+            self.input_to_move_token()
+
     def run_move_token(self):
         self.move_token()
         system('cls')
