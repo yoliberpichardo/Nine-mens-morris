@@ -2,7 +2,7 @@
 class Player:
     def __init__(self, name):
         self.name = name
-        self.token = 2
+        self.token = 9
         self.colorTokens = ''
 
 playerList = []

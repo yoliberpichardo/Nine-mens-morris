@@ -32,7 +32,7 @@ class Board:
                      [ [' '],'-----','-----',[' '],'-----','-----',[' '] ]     ] 
     
     
-    def view(self):
+    def view(self): #Method to show the perfect view of the board.
         system('cls')
         cont = 0
         if playerList[1].colorTokens == '◎' and playerList[1].token == 0:
@@ -51,11 +51,11 @@ class Board:
         self.view_board += self.coordinate
         return self.view_board
 
-    def input_coordinate(self):
+    def input_coordinate(self):     #Function that is responsible for measuring the parameters to enter chips on the board
         self.row_input = input('Enter the row: ')
         self.column_input = input('Enter the column: ')    
 
-        while self.row_input not in self.checks or self.column_input not in self.checks :
+        while self.row_input not in self.checks or self.column_input not in self.checks:
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
             self.row_input = input('Enter the row: ')
             self.column_input = input('Enter the column: ')
@@ -65,8 +65,8 @@ class Board:
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]  
         return self.matriz
 
-    # funcion para que el player puda insertar un token
-    def insert_token(self,character):
+    
+    def insert_token(self,character):   #Function for the player to insert a token
         self.input_coordinate()
         system('cls')
         while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
@@ -98,7 +98,7 @@ class Board:
                     self.character = playerList[0].colorTokens
                     return self.character
                     
-    def run_insert_token(self):
+    def run_insert_token(self):     #Process that takes care of each player's turn.
         print(self.view())
         if self.character == playerList[0].colorTokens:
             print('TURN OF → {}'.format(playerList[0].name))
@@ -120,12 +120,11 @@ class Board:
         self.change_turn()
         return self.matriz
 
-    def input_to_select_token(self):     #Esta funcion es encargada de mover las fichas en el tablero..
+    def input_to_select_token(self): #This function is responsible for moving the tiles on the board.
         self.run_insert_token()
         system('cls')
         self.view_board = ''
         print(self.view())
-        print('Attention!!')
         print('All tiles have been inserted into the board, please proceed to move the tiles')
         self.matriz = []
         self.view_board = ''
@@ -138,7 +137,7 @@ class Board:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
 
-        while self.row_select not in self.checks or self.column_select not in self.checks:   #Funcion que verifica la entrada de coordenada fila y columna..
+        while self.row_select not in self.checks or self.column_select not in self.checks:
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -148,7 +147,7 @@ class Board:
         self.matriz = self.board[int(self.row_select)][int(self.column_select)]
         return self.matriz
         
-    def extract_token(self):           #Funcion que toma la ficha a mover... y verifica dicha entrada
+    def extract_token(self):  #Function that takes the tab to move ... and verifies this entry
         self.input_to_select_token()
         system('cls')
         self.view_board = ''
@@ -158,82 +157,56 @@ class Board:
             self.view_board = ''
             print(self.view())
             print('You cant enter that piece here, re-enter the coordinates')
+            self.row_select = input('Enter the row to move the token: ')
+            self.column_select = input('Enter the column to move the token: ')
             self.input_to_select_token()
 
-        if self.board[int(self.row_select)][int(self.column_select)] != [' ']:       #Verifica si la casilla en el en el tablero esta vacia ..
+        if self.board[int(self.row_select)][int(self.column_select)] != [' ']:
             self.token_extracted += self.board[int(self.row_select)][int(self.column_select)].pop()
             self.board[int(self.row_select)][int(self.column_select)].append(' ')
             return self.token_extracted
         else:
             self.view_board = ''
             print(self.view())
-            print('Box incorrect, re-enter the coordinates')
+            print('Box incorrect, enter the coordinates')
             self.extract_token()
-    
-    def input_to_move_token(self):    #Funcion que lleva la ficha seleccionada al lugar de destino requerido...
-        self.extract_token()
-        system('cls')
-        self.view_board = ''
-        print(self.view())
-        self.matriz = []
+
+    def input_to_move_token(self):    #Function that verifies and takes the selected file to the required destination.
         self.row_of_destiny = input('Enter the row of destiny: ')
         self.column_of_destiny = input('Enter the column of destiny: ')
-        
-        while self.row_of_destiny not in self.checks or self.column_of_destiny not in self.checks:
-            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.row_of_destiny = input('Enter the row of destiny: ')
-            self.column_of_destiny = input('Enter the column of destiny: ')
+        if self.row_of_destiny not in self.checks or self.column_of_destiny not in self.checks:
             system('cls')
             self.view_board = ''
             print(self.view())
+            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+            self.input_to_move_token()
+            self.extract_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
-        return self.matriz
-
-    def move_token(self):                #Funcion para mover las fichas, una vez insertada en el tablero...
-        self.input_to_move_token()
-        system('cls')
-        self.view_board = ''
-        print(self.view())
-        while not isinstance(self.board[int(self.row_of_destiny)][int(self.column_of_destiny)],list):  #Verificacion de las entrada de fila y columna
-            self.view_board = ''
-            print(self.view())
-            print('You cant enter that piece here, re-enter the coordinates')
-            self.input_to_move_token()
-
-        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == ['◉']:
-            self.board[int(self.row_select)][int(self.column_select)].pop()
-            self.board[int(self.row_select)][int(self.column_select)].append(self.token_extracted)
-            self.token_extracted = ''
-            print('la casilla esta ocupada por una ficha blanca, re-enter the coordinates')
-            self.input_to_move_token()
-            
-        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == ['◎']:
-            self.board[int(self.row_select)][int(self.column_select)].pop()
-            self.board[int(self.row_select)][int(self.column_select)].append(self.token_extracted)
-            self.token_extracted = ''
-            print('la casilla esta ocupada por una ficha negra, re-enter the coordinates')
-            self.input_to_move_token()
-
-        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
+    
+        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
             self.token_extracted = ''
             self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
             return self.matriz
-
+        
         else:
-            self.view_board = ''
-            print(self.view())
-            print('box incorrect, re-enter the coordinates')
-            self.input_to_move_token()
+            if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
+                print('It cannot be inserted here, it is not a list')
+                system('cls')
+                self.view_board = ''
+                print(self.view())
+                self.input_to_move_token()
 
     def run_move_token(self):
-        self.move_token()
+        self.extract_token()
+        self.input_to_move_token()
         system('cls')
         self.view_board = ''
         print(self.view)
         while (self.cont_token_table_b + self.cont_token_table_w) != 0:
-            self.move_token()
+            self.extract_token()
+            self.input_to_move_token()
             system('cls')
             self.view_board = ''
             print(self.view)
