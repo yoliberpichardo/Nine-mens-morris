@@ -13,5 +13,3 @@ table_p.table()
 table_p.run_move_token()
 print(table_p.view())
 
-
-
