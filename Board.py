@@ -97,7 +97,7 @@ class Board:
                 else:
                     self.character = playerList[0].colorTokens
                     return self.character
-                    
+
     def run_insert_token(self):     #Process that takes care of each player's turn.
         print(self.view())
         if self.character == playerList[0].colorTokens:
@@ -132,20 +132,28 @@ class Board:
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
+            self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+            # if self.board[int(self.row_select)][int(self.column_select)] == ['◉']:
+            #     print('No puedes tomar pieza contraria')
+            #     self.input_to_select_token()
+        
         else:
             print('TURN OF → {}'.format(playerList[0].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
 
-        while self.row_select not in self.checks or self.column_select not in self.checks:
-            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.row_select = input('Enter the row to move the token: ')
-            self.column_select = input('Enter the column to move the token: ')
-            system('cls')
-            self.view_board = ''
-            print(self.view())
-        self.matriz = self.board[int(self.row_select)][int(self.column_select)]
-        return self.matriz
+            while self.row_select not in self.checks or self.column_select not in self.checks:
+                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+                self.row_select = input('Enter the row to move the token: ')
+                self.column_select = input('Enter the column to move the token: ')
+                system('cls')
+                self.view_board = ''
+                print(self.view())
+                self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+                return self.matriz
+
+    # def valid_movements(self):
+      
         
     def extract_token(self):  #Function that takes the tab to move ... and verifies this entry
         self.input_to_select_token()
@@ -160,7 +168,7 @@ class Board:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
             self.input_to_select_token()
-
+            
         if self.board[int(self.row_select)][int(self.column_select)] != [' ']:
             self.token_extracted += self.board[int(self.row_select)][int(self.column_select)].pop()
             self.board[int(self.row_select)][int(self.column_select)].append(' ')
@@ -182,22 +190,22 @@ class Board:
             self.input_to_move_token()
             self.extract_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
-    
-        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
+
+        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print('It cannot be inserted here, it is not a list or the box is occupied')
+            self.input_to_move_token()
+        
+        else:
+            self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
             self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
             self.token_extracted = ''
             self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
             return self.matriz
         
-        else:
-            if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
-                print('It cannot be inserted here, it is not a list')
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                self.input_to_move_token()
-
     def run_move_token(self):
         self.extract_token()
         self.input_to_move_token()
