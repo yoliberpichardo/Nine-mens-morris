@@ -190,32 +190,370 @@ class Board:
             self.input_to_move_token()
             self.extract_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+
+        #aqui va la validacion para movimientos adyacentes
+        if int(self.row_select) == 0 and int(self.column_select) == 0: #casilla 0,0
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 0:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 0 and int(self.column_select) == 3: #casilla 0,3
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1:
+                if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 0 and int(self.column_select) == 6: #casilla 0,6
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
         
-        if int(self.row_select) != 0 and int(self.column_select) in range(0,6): #verificacion para las primeras filas y columnas
-            if int(self.row_of_destiny) != (int(self.row_select )+ 3) or int(self.column_of_destiny) != (int(self.column_select )+ 3) or int(self.row_of_destiny) != (int(self.row_select )- 3) or int(self.column_of_destiny) != (int(self.column_select )- 3):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
+        elif int(self.row_select) == 1 and int(self.column_select) == 1: #casilla 1,1
+            if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
+                if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 3:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
 
-        elif int(self.row_select) != 1 and int(self.column_select) in range(1,5):#verificacion para las segunda filas y columnas
-             if int(self.row_of_destiny) != (int(self.row_select )+ 2) or int(self.column_of_destiny) != (int(self.column_select )+ 2) or int(self.row_of_destiny) != (int(self.row_select )- 2) or int(self.column_of_destiny) != (int(self.column_select )- 2):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
+        elif int(self.row_select) == 1 and int(self.column_select) == 3: #casilla 1,3
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2:
+                if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+        
+        elif int(self.row_select) == 1 and int(self.column_select) == 5: #casilla 1,5
+            if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
 
-        elif int(self.row_select) != 2 and int(self.column_select) in range(2,4):#verificacion para las tercera filas y columnas
-             if int(self.row_of_destiny) != (int(self.row_select )+ 1) or int(self.column_of_destiny) != (int(self.column_select )+ 1) or int(self.row_of_destiny) != (int(self.row_select )- 1) or int(self.column_of_destiny) != (int(self.column_select )- 1):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
+        elif int(self.row_select) == 2 and int(self.column_select) == 2: #casilla 2,2
+            if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
+                if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
 
-        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
+        elif int(self.row_select) == 2 and int(self.column_select) == 3: #casilla 2,3
+            if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2 :
+                if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 2 and int(self.column_select) == 4: #casilla 2,4
+            if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 0: #casilla 3,0
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+        
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 1: #casilla 3,1
+            if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 2:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 2: #casilla 3,2
+            if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 1:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 4: #casilla 3,4
+            if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 4:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 5: #casilla 3,5
+            if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                if int(self.column_of_destiny) == 4 or int(self.column_of_destiny) == 6 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 3 and int(self.column_select) == 6: #casilla 3,6
+            if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 4 and int(self.column_select) == 2: #casilla 4,2
+            if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4 :
+                if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 4 and int(self.column_select) == 3: #casilla 4,3
+            if  int(self.row_of_destiny) == 5 or int(self.row_of_destiny) == 4:
+                if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 4 and int(self.column_select) == 4: #casilla 4,4
+            if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 5 and int(self.column_select) == 1: #casilla 5,1
+            if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 5 and int(self.column_select) == 3: #casilla 5,3
+            if  int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5 or int(self.column_of_destiny) == 4:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 5 and int(self.column_select) == 5: #casilla 5,5
+            if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 6 and int(self.column_select) == 0: #casilla 6,0
+            if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 6 and int(self.column_select) == 3: #casilla 6,3
+            if  int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5:
+                if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        elif int(self.row_select) == 6 and int(self.column_select) == 6: #casilla 6,6
+            if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+                    self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+                    self.token_extracted = ''
+                    self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+                    return self.matriz
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+            print("no se puede mover aqui solo puede moverse en lieneas adyacentes")
+            self.input_to_move_token()
+            self.extract_token()
+
+        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
             system('cls')
             self.view_board = ''
             print(self.view())
