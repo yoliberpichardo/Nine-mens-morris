@@ -1,4 +1,4 @@
-
+from os import system
 class Player:
     def __init__(self, name):
         self.name = name
@@ -9,7 +9,8 @@ playerList = []
 def input_Player():
     checks = ['1','2']
     inputOpcion = input('Enter an option to play: ') 
-    while inputOpcion not in  checks:
+    while inputOpcion not in checks:
+        system('cls')
         print('You input is invalid')
         inputOpcion = input('Enter an option to play: ')
     return int(inputOpcion)

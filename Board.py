@@ -149,11 +149,8 @@ class Board:
                 system('cls')
                 self.view_board = ''
                 print(self.view())
-                self.matriz = self.board[int(self.row_select)][int(self.column_select)]
-                return self.matriz
-
-    # def valid_movements(self):
-      
+            self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+            return self.matriz
         
     def extract_token(self):  #Function that takes the tab to move ... and verifies this entry
         self.input_to_select_token()
@@ -191,31 +188,7 @@ class Board:
             self.extract_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
         
-        if int(self.row_select) != 0 and int(self.column_select) in range(0,6): #verificacion para las primeras filas y columnas
-            if int(self.row_of_destiny) != (int(self.row_select )+ 3) or int(self.column_of_destiny) != (int(self.column_select )+ 3) or int(self.row_of_destiny) != (int(self.row_select )- 3) or int(self.column_of_destiny) != (int(self.column_select )- 3):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
-
-        elif int(self.row_select) != 1 and int(self.column_select) in range(1,5):#verificacion para las segunda filas y columnas
-             if int(self.row_of_destiny) != (int(self.row_select )+ 2) or int(self.column_of_destiny) != (int(self.column_select )+ 2) or int(self.row_of_destiny) != (int(self.row_select )- 2) or int(self.column_of_destiny) != (int(self.column_select )- 2):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
-
-        elif int(self.row_select) != 2 and int(self.column_select) in range(2,4):#verificacion para las tercera filas y columnas
-             if int(self.row_of_destiny) != (int(self.row_select )+ 1) or int(self.column_of_destiny) != (int(self.column_select )+ 1) or int(self.row_of_destiny) != (int(self.row_select )- 1) or int(self.column_of_destiny) != (int(self.column_select )- 1):
-                system('cls')
-                self.view_board = ''
-                print(self.view())
-                print('no puede moverse a una linea que no sea adyacente')
-                self.input_to_move_token()
-
-        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
+        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
             system('cls')
             self.view_board = ''
             print(self.view())

@@ -12,7 +12,3 @@ table_p.table()
 table_p.run_move_token()
 print(table_p.view())
 
-<<<<<<< HEAD
-=======
-
->>>>>>> aa44376bbbce8d9d63dcd0d2d75d575857b37d11
