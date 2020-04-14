@@ -125,7 +125,7 @@ class Board:
         system('cls')
         self.view_board = ''
         print(self.view())
-        print('All tiles have been inserted into the board, please proceed to move the tiles')
+        print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
         if self.character == playerList[0].colorTokens:
@@ -133,14 +133,12 @@ class Board:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
-            # if self.board[int(self.row_select)][int(self.column_select)] == ['◉']:
-            #     print('No puedes tomar pieza contraria')
-            #     self.input_to_select_token()
-        
+
         else:
             print('TURN OF → {}'.format(playerList[0].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
+            self.matriz = self.board[int(self.row_select)][int(self.column_select)]
 
             while self.row_select not in self.checks or self.column_select not in self.checks:
                 print('Ohh ray!!, You cannot enter letters or digits of two numbers')
@@ -187,20 +185,173 @@ class Board:
             self.input_to_move_token()
             self.extract_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
-        
+
         if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
             system('cls')
             self.view_board = ''
             print(self.view())
             print('It cannot be inserted here, it is not a list')
             self.input_to_move_token()
+        else:
+       #validation for movement adyacent
+            if int(self.row_select) == 0 and int(self.column_select) == 0: #casilla 0,0
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 0:
+                      return self.add_tab_on_the_board()
+                return self.clean_screen()
 
-        elif self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] == [' ']:
-            self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
-            self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
-            self.token_extracted = ''
-            self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
-            return self.matriz
+            elif int(self.row_select) == 0 and int(self.column_select) == 3: #Box 0,3
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1:
+                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 6:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 0 and int(self.column_select) == 6: #Box 0,6
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 1 and int(self.column_select) == 1: #Box 1,1
+                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
+                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 3:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 1 and int(self.column_select) == 3: #Box 1,3
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2:
+                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 1 and int(self.column_select) == 5: #Box 1,5
+                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 2 and int(self.column_select) == 2: #Box 2,2
+                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
+                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 2 and int(self.column_select) == 3: #Box 2,3
+                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2 :
+                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 2 and int(self.column_select) == 4: #Box 2,4
+                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 0: #Box 3,0
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 1: #Box 3,1
+                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 2:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 2: #Box 3,2
+                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 1:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 4: #Box 3,4
+                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                    if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 4:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 5: #Box 3,5
+                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 4 or int(self.column_of_destiny) == 6 or int(self.column_of_destiny) == 6:
+                      return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 3 and int(self.column_select) == 6: #Box 3,6
+                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                    if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 6:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 4 and int(self.column_select) == 2: #Box 4,2
+                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4 :
+                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 4 and int(self.column_select) == 3: #Box 4,3
+                if int(self.row_of_destiny) == 5 or int(self.row_of_destiny) == 4:
+                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 4 and int(self.column_select) == 4: #Box 4,4
+                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 5 and int(self.column_select) == 1: #Box 5,1
+                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 5 and int(self.column_select) == 3: #Box 5,3
+                if int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5 or int(self.column_of_destiny) == 4:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 5 and int(self.column_select) == 5: #Box 5,5
+                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 6 and int(self.column_select) == 0: #Box 6,0
+                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 6 and int(self.column_select) == 3: #Box 6,3
+                if int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+            elif int(self.row_select) == 6 and int(self.column_select) == 6: #Box 6,6
+                if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
+                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
+                       return self.add_tab_on_the_board()
+                return self.clean_screen()
+
+    def add_tab_on_the_board(self):  #Function add tab on the board
+        self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
+        self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+        self.token_extracted = ''
+        self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+        return self.matriz
+        self.input_to_move_token()
+        
+    def clean_screen(self):#Function for clean screen
+        system('cls')
+        self.view_board = ''
+        print(self.view())
+        print("Invalid movement, you can only move in adjacent lines")
+        self.input_to_move_token()
 
     def run_move_token(self):
         self.extract_token()
