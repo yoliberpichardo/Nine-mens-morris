@@ -132,14 +132,17 @@ class Board:
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
-            self.matriz = self.board[int(self.row_select)][int(self.column_select)]
-
+            if self.board[int(self.row_select)][int(self.column_select)] == playerList[1].colorTokens:
+                self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+            self.cleaning_piece()
         else:
             print('TURN OF → {}'.format(playerList[0].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
-            self.matriz = self.board[int(self.row_select)][int(self.column_select)]
-
+            if self.board[int(self.row_select)][int(self.column_select)] != playerList[0].colorTokens:
+                self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+            self.cleaning_piece()
+            
             while self.row_select not in self.checks or self.column_select not in self.checks:
                 print('Ohh ray!!, You cannot enter letters or digits of two numbers')
                 self.row_select = input('Enter the row to move the token: ')
@@ -149,6 +152,16 @@ class Board:
                 print(self.view())
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
             return self.matriz
+
+    def cleaning_piece(self): #limpiar la funcion de la piezas erroneas
+        system('cls')
+        self.view_board = ''
+        print(self.view())
+        self.input_to_select_token()
+        self.row_select = input('Enter the row to move the token: ')
+        self.column_select = input('Enter the column to move the token: ')
+        print('esta ficha no te pertenece, elija una ficha de su color')
+
         
     def extract_token(self):  #Function that takes the tab to move ... and verifies this entry
         self.input_to_select_token()
@@ -337,6 +350,8 @@ class Board:
                     if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
                        return self.add_tab_on_the_board()
                 return self.clean_screen()
+
+
 
     def add_tab_on_the_board(self):  #Function add tab on the board
         self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
