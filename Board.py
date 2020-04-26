@@ -132,7 +132,22 @@ class Board:
             print('TURN OF → {}'.format(playerList[0].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
+            while self.row_select not in self.checks or self.column_select not in self.checks:
+                system('cls')
+                self.view_board = ''
+                print(self.view())
+                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+                self.row_select = input('Enter the row to move the token: ')
+                self.column_select = input('Enter the column to move the token: ')
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+
+            while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
+                self.view_board = ''
+                print(self.view())
+                print('You cant enter that piece here, re-enter the coordinates')
+                self.row_select = input('Enter the row to move the token: ')
+                self.column_select = input('Enter the column to move the token: ')
+
             if self.board[int(self.row_select)][int(self.column_select)] == ['◉']:
                 self.token_extracted += self.board[int(self.row_select)][int(self.column_select)].pop()
                 self.board[int(self.row_select)][int(self.column_select)].append(' ')
@@ -145,7 +160,21 @@ class Board:
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
+            while self.row_select not in self.checks or self.column_select not in self.checks:
+                system('cls')
+                self.view_board = ''
+                print(self.view())
+                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+                self.row_select = input('Enter the row to move the token: ')
+                self.column_select = input('Enter the column to move the token: ')
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
+            while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
+                self.view_board = ''
+                print(self.view())
+                print('You cant enter that piece here, re-enter the coordinates')
+                self.row_select = input('Enter the row to move the token: ')
+                self.column_select = input('Enter the column to move the token: ')
+
             if self.board[int(self.row_select)][int(self.column_select)] == ['◎']:
                 self.token_extracted += self.board[int(self.row_select)][int(self.column_select)].pop()
                 self.board[int(self.row_select)][int(self.column_select)].append(' ')
@@ -153,19 +182,12 @@ class Board:
             else:
                 self.cleaning_piece()
 
-            while self.row_select not in self.checks or self.column_select not in self.checks:
-                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-                self.row_select = input('Enter the row to move the token: ')
-                self.column_select = input('Enter the column to move the token: ')
-                system('cls')
-                self.view_board = ''
-                print(self.view())
+            
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
             return self.matriz
 
     def cleaning_piece(self):  #limpiar la funcion de la piezas erroneas
         print('Esta no es tu ficha, elije tu ficha correspondiente')
-        input()
         self.input_to_select_token()
 
 
