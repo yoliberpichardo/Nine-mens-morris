@@ -182,36 +182,13 @@ class Board:
             else:
                 self.cleaning_piece()
 
-            
             self.matriz = self.board[int(self.row_select)][int(self.column_select)]
             return self.matriz
 
     def cleaning_piece(self):  #limpiar la funcion de la piezas erroneas
         print('Esta no es tu ficha, elije tu ficha correspondiente')
+        input('Enter to continue..')
         self.input_to_select_token()
-
-
-    # def extract_token(self):  #Function that takes the tab to move ... and verifies this entry
-    #     # self.input_to_select_token()
-    #     # system('cls')
-    #     # self.view_board = ''
-    #     # print(self.view())
-    #     while not isinstance(self.board[int(self.row_select)][int(self.column_select)],list):
-    #         system('cls')
-    #         self.view_board = ''
-    #         print(self.view())
-    #         print('You cant enter that piece here, re-enter the coordinates')
-    #         self.input_to_select_token()
-    #     if self.row_select not in self.checks or self.column_select not in self.checks:
-    #         print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-    #         self.input_to_select_token()
-
-    #     # if self.board[int(self.row_select)][int(self.column_select)] != [' ']:
-    #     #     self.token_extracted += self.board[int(self.row_select)][int(self.column_select)].pop()
-    #     #     self.board[int(self.row_select)][int(self.column_select)].append(' ')
-    #     #     return self.token_extracted
-    #     else:
-    #        pass
 
     def input_to_move_token(self):    #Function that verifies and takes the selected file to the required destination.
         self.row_of_destiny = input('Enter the row of destiny: ')
@@ -222,7 +199,6 @@ class Board:
             print(self.view())
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
             self.input_to_move_token()
-            # self.extract_token()
             self.input_to_select_token()
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
 
@@ -378,8 +354,6 @@ class Board:
                        return self.add_tab_on_the_board()
                 return self.clean_screen()
 
-
-
     def add_tab_on_the_board(self):  #Function add tab on the board
         self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
         self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
@@ -387,7 +361,7 @@ class Board:
         self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
         return self.matriz
         self.input_to_move_token()
-        
+
     def clean_screen(self):#Function for clean screen
         system('cls')
         self.view_board = ''
@@ -395,10 +369,24 @@ class Board:
         print("Invalid movement, you can only move in adjacent lines")
         self.input_to_move_token()
 
+
+    def check_Mill(self):#Funcion para identificar los molinos formados
+       pass
+
+
+
+
+
+
+
+
+
+
+
+
     def run_move_token(self):
         self.run_insert_token()
         self.input_to_select_token()
-        # self.extract_token()
         self.input_to_move_token()
         system('cls')
         self.view_board = ''
@@ -406,9 +394,7 @@ class Board:
         while (self.cont_token_table_b + self.cont_token_table_w) != 0:
             self.run_insert_token()
             self.input_to_select_token()
-            # self.extract_token()
             self.input_to_move_token()
             system('cls')
             self.view_board = ''
             print(self.view)
-        
