@@ -2,7 +2,7 @@ from os import system
 class Player:
     def __init__(self, name):
         self.name = name
-        self.token = 1
+        self.token = 3
         self.colorTokens = ''
 
 playerList = []
