@@ -2,6 +2,7 @@ from players import *
 from os import system
 class Board:
     def __init__(self,character):
+        self.color_token = [['◉'],['◎']]
         self.row_input = ''
         self.row_of_destiny = ''
         self.column_input = ''
@@ -68,106 +69,154 @@ class Board:
     
 #MOLINO HORIZONTAL PLAYER1
     def check_Mill_horizontals1(self):
-        a = ['◉']
+        a = self.color_token[0]
         if self.board[0][0] == a  and self.board[0][3] == a and self.board[0][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][1] == a and self.board[1][3] == a and self.board[1][5] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][2] == a and self.board[2][3] == a and self.board[2][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[3][0] == a and self.board[3][1] == a and self.board[3][2] == a and self.board[3][4]  == a and self.board[3][5] == a and self.board[3][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[4][2] == a and self.board[4][3] == a and self.board[4][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[5][1] == a and self.board[5][3] == a and self.board[5][5] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[6][0] == a and self.board[6][3] == a and self.board[6][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
 
 #MOLINO VERTICAL PLAYER 1
     def check_Mill_vertical1(self):
         self.check_Mill_horizontals1()
-        a = ['◉']
+        a = self.color_token[0]
         if self.board[0][0] == a  and self.board[3][0] == a and self.board[6][0] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][1] == a and self.board[3][1] == a and self.board[5][1] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][2] == a and self.board[3][2] == a and self.board[4][2] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[0][3] == a and self.board[1][3] == a and self.board[2][3] == a and self.board[4][3]  == a and self.board[5][3] == a and self.board[6][3] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][4] == a and self.board[3][4] == a and self.board[4][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][5] == a and self.board[3][5] == a and self.board[5][5] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[0][6] == a and self.board[3][6] == a and self.board[6][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
 
 ##MOLINOS HORIZONTAL PLAYER 2
     def Mill_horizontals2(self):
-        a = ['◎']
+        a = self.color_token[1]
         if self.board[0][0] == a  and self.board[0][3] == a and self.board[0][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][1] == a and self.board[1][3] == a and self.board[1][5] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][2] == a and self.board[2][3] == a and self.board[2][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[3][0] == a and self.board[3][1] == a and self.board[3][2] == a and self.board[3][4]  == a and self.board[3][5] == a and self.board[3][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[4][2] == a and self.board[4][3] == a and self.board[4][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[5][1] == a and self.board[5][3] == a and self.board[5][5] == a:
             print('eliminacion de fichas')
             input()
         if self.board[6][0] == a and self.board[6][3] == a and self.board[6][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
 
 #MOLINO VERTICAL PLAYER2
     def check_Mill_vertical2(self):
         self.Mill_horizontals2()
-        a = ['◎']
+        a = self.color_token[1]
         if self.board[0][0] == a  and self.board[3][0] == a and self.board[6][0] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][1] == a and self.board[3][1] == a and self.board[5][1] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][2] == a and self.board[3][2] == a and self.board[4][2] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[0][3] == a and self.board[1][3] == a and self.board[2][3] == a and self.board[4][3]  == a and self.board[5][3] == a and self.board[6][3] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[2][4] == a and self.board[3][4] == a and self.board[4][4] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[1][5] == a and self.board[3][5] == a and self.board[5][5] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
         if self.board[0][6] == a and self.board[3][6] == a and self.board[6][6] == a:
             print('eliminacion de fichas')
+            self.token_removal()
             input()
 
+    # token removal
+    def token_removal(self):
+        system('cls')
+        self.view_board = ''
+        print(self.view())
+        print("tienes un molino, por favor elimine una ficha del oponente")
+        self.row_input = input('Enter the row: ')
+        self.column_input = input('Enter the column: ')
+
+        while self.row_input not in self.checks or self.column_input not in self.checks:
+            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+            self.row_input = input('Enter the row: ')
+            self.column_input = input('Enter the column: ')
+            system('cls')
+            self.view_board = ''
+            print(self.view())
+        self.matriz = self.board[int(self.row_input)][int(self.column_input)]
+        if self.board[int(self.row_input)][int(self.column_input)] != ['']:
+            self.board[int(self.row_input)][int(self.column_input)].pop                                                      
+            print(self.matriz)
+        
     #Method for the player to insert a toke
     def insert_token(self,character):
         self.input_coordinate()
@@ -345,7 +394,7 @@ class Board:
 
             elif int(self.row_select) == 1 and int(self.column_select) == 3: #Box 1,3
                 if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2:
-                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
+                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 3:
                         return self.add_tab_on_the_board()
                 return self.clean_screen()
 
@@ -399,7 +448,7 @@ class Board:
 
             elif int(self.row_select) == 3 and int(self.column_select) == 5: #Box 3,5
                 if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 4 or int(self.column_of_destiny) == 6 or int(self.column_of_destiny) == 6:
+                    if int(self.column_of_destiny) == 4 or int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 6:
                         return self.add_tab_on_the_board()
                 return self.clean_screen()
 
