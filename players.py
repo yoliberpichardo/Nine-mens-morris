@@ -1,30 +1,29 @@
 from os import system
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name1, name2):
+        self.name_player1 = name1
+        self.name_player2 = name2
         self.token = 3
         self.colorTokens = ''
 
+
+# def input_Player():
+#     checks = ['1','2']
+#     inputOpcion = input('Enter an option to play: ') 
+#     while inputOpcion not in checks:
+#         system('cls')
+#         print('You input is invalid')
+#         inputOpcion = input('Enter an option to play: ')
+#     return int(inputOpcion)
+
+    def creator_Player(self):
+        names_player = Player('name1', 'name2')
+        names_player.name_player1 = input('Enter the name of player 1: ')
+        names_player.name_player2 = input('Enter the name of player 2: ')
+        print(names_player.name_player1)
+    
+
 playerList = []
-def input_Player():
-    checks = ['1','2']
-    inputOpcion = input('Enter an option to play: ') 
-    while inputOpcion not in checks:
-        system('cls')
-        print('You input is invalid')
-        inputOpcion = input('Enter an option to play: ')
-    return int(inputOpcion)
-
-def creator_Player():
-    verified_entry = input_Player()
-    for valPlayer in range(verified_entry):
-        input_name = input('Enter the name of player{}: '.format(valPlayer + 1))
-        if len(input_name) == 0 or len(input_name) > 7:
-            print('The name you entered has more than 7 letters or is empty, please re-enter the name')
-            input_name = input('Enter the name of player{}: '.format(valPlayer + 1))
-        playerList.append(Player(input_name))
-    return playerList
-
 def mapper_tokens():
     creator_Player()
     if len(playerList) == 1:

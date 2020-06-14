@@ -36,11 +36,11 @@ class Board:
         system('cls')
         cont = 0
         if playerList[1].colorTokens == '◎' and playerList[1].token == 0:
-            print(playerList[0].name,'→',playerList[0].token, playerList[0].colorTokens)
-            print(playerList[1].name,'→',playerList[1].token, playerList[1].colorTokens)
+            print('→',playerList[0].token, playerList[0].colorTokens)
+            print('→',playerList[1].token, playerList[1].colorTokens)
         else:
-            print(playerList[0].name, playerList[0].colorTokens * playerList[0].token,'→', playerList[0].token)
-            print(playerList[1].name, playerList[1].colorTokens * playerList[1].token,'→', playerList[1].token)
+            print( playerList[0].colorTokens * playerList[0].token,'→', playerList[0].token)
+            print( playerList[1].colorTokens * playerList[1].token,'→', playerList[1].token)
         for element in self.board:
             self.view_board += '\n'
             self.view_board += str(cont) + '  '
