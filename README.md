@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Nine-mens-morris
 ## INTRODUCTION:
 ***
@@ -24,3 +25,6 @@ To know more how to play or learn more about the game visit this website https:/
  * Jerson Cuevas Diaz.
  * Yoliber Pichardo.
 
+=======
+             
+>>>>>>> df8fc08b5941964a86182ebfc58297fd46ce0ed0
