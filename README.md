@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Nine-mens-morris
 ## INTRODUCTION:
 ***
