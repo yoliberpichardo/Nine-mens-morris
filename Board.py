@@ -66,15 +66,13 @@ class Board:
             print(self.view())
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]
         return self.matriz
-    
-#MOLINO HORIZONTAL PLAYER1
-#MOLINO VERTICAL PLAYER2
-    # token removal
+
+    #Token removal method.
     def token_removal(self):
         system('cls')
         self.view_board = ''
         print(self.view())
-        print("tienes un molino, por favor elimine una ficha del oponente")
+        print("You have a mill, please remove an opponent's tile..")
         self.row_input = input('Enter the row: ')
         self.column_input = input('Enter the column: ')
 
@@ -397,13 +395,6 @@ class Board:
         print(self.view())
         print("Invalid movement, you can only move in adjacent lines")
         self.input_to_move_token()
-
-    #Method para identificar los molinos formados
-    # def check_Mill(self):
-    #    for element in self.board:
-    #        for pieces in element:
-    #            if pieces[0] == ['◉']:
-    #                print('es parte de un molino')
 
 
     def run_move_token(self):
