@@ -31,7 +31,7 @@ class Board:
                      ['  |  ', [' '],'-----', [' '],'-----',[' '],'  | '],
 
                      [[' '], '-----', '-----', [' '], '-----', '-----', [' ']]]
-
+        return self.board
     #Method to show the perfect view of the board.
     def view(self): 
         system('cls')
@@ -66,7 +66,7 @@ class Board:
             print(self.view())
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]
         return self.matriz
-
+    
     #Token removal method.
     def token_removal(self):
         system('cls')
@@ -115,10 +115,14 @@ class Board:
     def change_turn(self):
             while self.character:
                 if self.character == playerList[0].colorTokens:
+                    self.checMill_rows()#FUNCTION MILL
+                    self.checMill_colums()
                     self.character = playerList[1].colorTokens
                     return self.character
                 else:
                     self.character = playerList[0].colorTokens
+                    self.checMill_rows()#FUNCTION MILL
+                    self.checMill_colums()
                     return self.character
 
     #Process that takes care of each player's turn.
@@ -126,6 +130,7 @@ class Board:
         print(self.view())
         if self.character == playerList[0].colorTokens:
             print('TURN OF → {}'.format(playerList[0].name))
+            # self.checMill_rows()
         while(playerList[0].token + (playerList[1].token)) != 0:
             self.insert_token(self.character)
             if self.character == playerList[0].colorTokens:
@@ -140,6 +145,7 @@ class Board:
                 self.view_board = ''
             else:
                 print('TURN OF → {}'.format(playerList[0].name))
+                # self.checMill_rows()
                 self.view_board = ''
         self.change_turn()
         return self.matriz
@@ -395,6 +401,98 @@ class Board:
         print(self.view())
         print("Invalid movement, you can only move in adjacent lines")
         self.input_to_move_token()
+
+    
+
+
+
+    #----------------------------------FUNCION FOR DELETE TOKEN--------------------------------##
+    def delete_player_piece(self):
+        print('Mill formed, select a token of your opponent!')
+        row1 = int(input('Enter row delete element: '))
+        colum2 = int(input('Enter colums delete element: '))
+        self.matriz = self.board[row1][colum2].pop()
+        self.matriz = self.board[row1][colum2].append(' ')
+        system('cls')
+        self.view_board = ' '
+        print(self.view())
+        return self.matriz
+        
+    #---------------------------------------------------FUNCTION FOR MILL---------------------------------##
+    
+    
+    def ranget(self, a, b, x, y):
+        if y + 4 > a:
+            return False
+        elif y - 3 < 0:
+            return False
+        else:
+            return True
+
+    def checMill_rows(self):
+        for x in range(len(self.board)):
+            for y in range(len(self.board)):
+                if self.board[x][y] == ['◉'] and self.ranget(7, 7, x, y):
+                    if self.board[x][y] and self.board[x][y+3] == ['◉']:
+                        if self.board[x][y-3] == ['◉']:
+                            self.delete_player_piece()
+                            
+                    if self.board[x][y] and self.board[x][y+2] == ['◉']:
+                        if self.board[x][y-2] == ['◉']:
+                            self.delete_player_piece()
+
+                    if self.board[x][y] and self.board[x][y+1] == ['◉']:
+                        if self.board[x][y-1] == ['◉']:
+                            self.delete_player_piece()
+                    
+                if self.board[3][0] == ['◉'] and self.board[3][0+1] == ['◉']:
+                    if self.board[3][1+1] == ['◉']:
+                        self.delete_player_piece()
+
+                if self.board[3][4] == ['0'] and self.board[3][4+1] == ['◉']:
+                    if self.board[3][5 + 1] == ['◉']:
+                        self.delete_player_piece()
+            
+    def checMill_colums(self):
+        for x in range(len(self.board)):
+            for y in range(len(self.board)):
+                if y != 3:
+                    if x + 3 < len(self.board):
+                        if self.board[x][y] == ['◉'] and self.board[x+3][y] == ['◉']:
+                            if self.board[x-3][y] == ['◉']:
+                                self.delete_player_piece()
+
+                        if self.board[x][y] == ['◉'] and self.board[x+2][y] == ['◉']:
+                            if self.board[x-2][y] == ['◉']:
+                                self.delete_player_piece()
+
+                        if self.board[x][y] == ['◉'] and self.board[x+1][y] == ['◉']:
+                            if self.board[x-1][y] == ['◉']:
+                                self.delete_player_piece()
+
+                if self.board[0][3] == ['◉'] and self.board[1][3] == ['◉']:
+                    if self.board[2][3] == ['◉']:
+                        self.delete_player_piece()
+
+                if self.board[4][3] == ['◉'] and self.board[5][3] == ['◉']:
+                    if self.board[6][4-1] == ['◉']:
+                        self.delete_player_piece()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     def run_move_token(self):
