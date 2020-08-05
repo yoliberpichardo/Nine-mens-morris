@@ -1,7 +1,7 @@
 from Board import *
 from players import *
 print('Welcome to the famous game NINE MENS MORRIS !!'.upper()+'\n')
-print('The gameplay is: 1 → player vs boot, 2 → player vs player'.upper()+'\n')
+
 
 input('Press Enter...')
 
