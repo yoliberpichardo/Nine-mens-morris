@@ -4,9 +4,9 @@ class Board:
     def __init__(self,character):
         self.color_token = [['◉'],['◎']]
         self.row_input = ''
-        self.row_of_destiny = ''
+        self.row_destiny = ''
         self.column_input = ''
-        self.column_of_destiny = ''
+        self.column_destiny = ''
         self.board = []
         self.view_board = '' 
         self.cont_token_table_w = 0
@@ -17,14 +17,15 @@ class Board:
         self.checks = ['0','1','2','3','4','5','6']
         self.coordinate = "     0    1    2    3    4    5    6"
         self.piece = 0
-
+    #-------------------------------------------------------------METHOD CREATE MATRIX-----------------------------------------------------#
     def table(self):
+        """"The matrix is ​​created and adjusted to its corresponding shape."""
         self.board = [[ [' '],'-----','-----',[' '],'-----','-----',[' '] ],
 
                      ['  |  ', [' '],'-----', [' '],'-----',[' '],'  | '],
 
                      ['  |    ','|  ',[' '],[' '],[' '],'  |  ','  |   '],
-
+                                                                                                                              
                      [[' '] ,[' '],[' '], '     ',[' '],[' '],[' ']],
 
                      ['  |    ','|  ',[' '],[' '],[' '],'  |   ',' |   '],
@@ -33,10 +34,12 @@ class Board:
 
                      [[' '], '-----', '-----', [' '], '-----', '-----', [' ']]]
         return self.board
-    #Method to show the perfect view of the board.
-    def view(self): 
+    #-----------------------------------METHOD THAT ALLOWS PLAYERS TO PERCEIVE THE PERFECT VIEW OF THE BOARD-------------------------------------------------------------#
+    def view(self):
+        """This improved view method adds excellent order and view to the dashboard.""" 
         system('cls')
         cont = 0
+        """The following conditional causes each player's name and number of chips to be displayed when the chip movement process begins."""
         if playerList[1].colorTokens == '◎' and playerList[1].token == 0:
             print(playerList[0].name,'→',playerList[0].token, playerList[0].colorTokens)
             print(playerList[1].name,'→',playerList[1].token, playerList[1].colorTokens)
@@ -52,17 +55,17 @@ class Board:
         self.view_board += '\n'
         self.view_board += self.coordinate
         return self.view_board
-
+    #------------------------------------------------METHOD FOR CLEANING OF SCREEN----------------------------------------#
     def clean_screen1(self):
+        """We use this method to call it in each case that the screen needs to be cleaned."""
         system('cls')
         self.view_board = ''
         print(self.view())
-        
-    #Method that is responsible for measuring the parameters to enter chips on the board
+    #-----------------------------------------------METHOD FOR ENTERING TABS IN THE BOARD-------------------------------------------------------------------#
     def input_coordinate(self):
+        """As input this method receives the, where you want to add a file of said player."""
         self.row_input = input('Enter the row: ')
         self.column_input = input('Enter the column: ')
-
         while self.row_input not in self.checks or self.column_input not in self.checks:
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
             self.row_input = input('Enter the row: ')
@@ -70,26 +73,10 @@ class Board:
             self.clean_screen1()
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]
         return self.matriz
-    
-    #Token removal method.
-    def token_removal(self):
-        self.clean_screen1()
-        print("You have a mill, please remove an opponent's tile..")
-        self.row_input = input('Enter the row: ')
-        self.column_input = input('Enter the column: ')
-
-        while self.row_input not in self.checks or self.column_input not in self.checks:
-            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.row_input = input('Enter the row: ')
-            self.column_input = input('Enter the column: ')
-            self.clean_screen1()
-        self.matriz = self.board[int(self.row_input)][int(self.column_input)]
-        if self.board[int(self.row_input)][int(self.column_input)] != ['']:
-            self.board[int(self.row_input)][int(self.column_input)].pop
-            print(self.matriz)
-
-    #Method for the player to insert a toke
+    #-----------------------------------------------METHOD FOR INSERTING THE TAB IN THE BOARD AND SUM OF TABS--------------------------------------------------#
     def insert_token(self,character):
+        """Insert token calls the function for entering coordinates,
+    and verifies if these entries are valid as well as the sum of the number of tokens of each player."""
         self.input_coordinate()
         system('cls')
         while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
@@ -110,9 +97,10 @@ class Board:
             print(self.view())
             print('Occupied box, re-enter the coordinates')
             self.insert_token(character)
-
-    #Method for change turn of players
+    #-------------------------------------------METHOD FOR CHANGE OF TURN----------------------------------------------------------------------------------#
     def change_turn(self):
+        """A request is made to the functions of the mills in this space, then the turn is managed,
+    if it happens to be the first player's file then the turn will pass to the second one but it will return to the previous player and so on."""
         self.checMill_rows()
         self.checMill_colums()
         while self.character:
@@ -122,9 +110,10 @@ class Board:
             else:
                 self.character = playerList[0].colorTokens
                 return self.character
-
-    #Process that takes care of each player's turn.
+    #-------------------------------------METHOD THAT MANAGES THE TURN AND THE ADDITION OF THE NUMBER OF FILES---------------------------------------------#
     def run_insert_token(self):
+        """The character variable contains the player's chip 1,
+    shows its name and then the sum of each player's chips is made."""    
         print(self.view())
         if self.character == playerList[0].colorTokens:
             print('TURN OF → {}'.format(playerList[0].name))
@@ -145,9 +134,11 @@ class Board:
                 self.view_board = ''
         self.change_turn()
         return self.matriz
-
-    #This method is responsible for moving the tiles on the board.
+    #--------------------------------------------------METHOD IN CHARGE OF THE FILE MOVEMENT---------------------------------------------------------------#
     def input_to_select_token(self):
+        """ According to each player's turn this function asks for the coordinates to select the tile to move
+    and then adds it to the board, we added a loop to verify those inputs so they are always valid inputs."""
+        
         print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
@@ -173,8 +164,8 @@ class Board:
                 self.run_insert_token()
             else:
                 self.cleaning_piece()
-
-        else:
+            """Turn corresponding to player 1 and we show his name."""
+        else:   
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -194,9 +185,11 @@ class Board:
                 return self.token_extracted
             else:
                 self.cleaning_piece()
-
-    #Wrong parts cleaning method
+    #---------------------------------------METHOD THAT HANDLES TOKEN POSSESSION-------------------------------------------------------------------------------#
     def cleaning_piece(self):
+        """Firstly, the conditional verifies if the piece that a player took is his own property,
+    if not, then he will give an alert message that it is not his piece."""
+        
         if self.board[int(self.row_select)][int(self.column_select)] == ['◎']: 
             print('This is not your file, choose your corresponding file..')
             input('Press enter for continue:  ')
@@ -209,183 +202,77 @@ class Board:
             input('Press enter for continue:  ')
             self.clean_screen1()
             self.input_to_select_token()
-        
-    #Method that verifies and takes the selected file to the required destination.
-    def input_to_move_token(self):
-        self.row_of_destiny = input('Enter the row of destiny: ')
-        self.column_of_destiny = input('Enter the column of destiny: ')
-        while self.row_of_destiny not in self.checks or self.column_of_destiny not in self.checks:
+    #-----------------------------------------------METHOD THAT HANDLES THE DESTINATION WHERE YOU WANT TO MOVE A TAB-----------------------------------------------#
+    def movement_adjacent_tiles(self):
+        """These data entries will store the coordinates that will be the positions where you want to take the file."""
+        self.row_destiny = input('Enter the row of destiny: ')
+        self.column_destiny = input('Enter the column of destiny: ')
+        if self.row_destiny not in self.checks or self.column_destiny not in self.checks:
             self.clean_screen1()
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.row_of_destiny = input('Enter the row of destiny: ')
-            self.column_of_destiny = input('Enter the column of destiny: ')
-        if self.board[int(self.row_of_destiny)][int(self.column_of_destiny)] != [' ']:
-            self.clean_screen1()
-            print('It cannot be inserted here, it is not a list')
             self.input_to_move_token()
+        y1 = int(self.row_select)
+        x1 = int(self.column_select)
+        y2 = int(self.row_destiny)
+        x2 = int(self.column_destiny)
+        if (self.board[y2][x2] == [' ']):
+            if (y1 == 0) or (y1 == 6) or (x1 == 0) or (x1 == 6):#colums 0 and 6, rows 0 and 6
+                if x1 + 3 == x2 and (y1 == y2) or y1 + 3 == y2 and (x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                elif x1 - 3 == x2 and (y1 == y2) or y1 - 3 == y2 and (x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                else:
+                    self.clean_screen()
+                    
+            if (y1 == 1) or (y1 == 5) or (x1 == 1) or (x1 == 5):
+                if x1 + 2 == x2 and (y1 == y2) or y1 + 2 == y2 and (x1 == x2):#colums 1 and 5, rows 1 and 5
+                    self.add_tab_on_the_board(x2,y2)
+                elif x1 - 2 == x2 and (y1 == y2) or y1 - 2 == y2 and (x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                else:
+                    self.clean_screen()    
+                    
+            if (y1 == 2) or (y1 == 4) or (x1 == 2) or (x1 == 4):
+                if x1 + 1 == x2 and (y1 == y2) or y1 + 1 == y2 and (x1 == x2):#colums 2,4 and 3; rows 2,4 and 3
+                    self.add_tab_on_the_board(x2,y2)
+                elif x1 - 1 == x2 and (y1 == y2) or y1 - 1 == y2 and (x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                else:
+                    self.clean_screen()
+                    
+            # if y1 == 3 or x1 == 3:
+            #     if x1 + 1 == x2 and (y1 == y2) or y1 + 1 == y2 and (x1 == x2):#colums 2,4 and 3; rows 2,4 and 3
+            #         self.add_tab_on_the_board(x2,y2)
+            #     else:
+            #         self.clean_screen()
+                
         else:
-            #validation for movement adyacent
-            if int(self.row_select) == 0 and int(self.column_select) == 0: #Box 0,0
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 0:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 0 and int(self.column_select) == 3: #Box 0,3
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1:
-                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 0 and int(self.column_select) == 6: #Box 0,6
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 1 and int(self.column_select) == 1: #Box 1,1
-                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
-                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 3:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 1 and int(self.column_select) == 3: #Box 1,3
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2:
-                    if int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 3:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 1 and int(self.column_select) == 5: #Box 1,5
-                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 2 and int(self.column_select) == 2: #Box 2,2
-                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
-                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 2 and int(self.column_select) == 3: #Box 2,3
-                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 2 :
-                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 2 and int(self.column_select) == 4: #Box 2,4
-                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 :
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 0: #Box 3,0
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
-                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 1: #Box 3,1
-                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 2:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 2: #Box 3,2
-                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
-                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 1:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 4: #Box 3,4
-                if int(self.row_of_destiny) == 2 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
-                    if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 4:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 5: #Box 3,5
-                if int(self.row_of_destiny) == 1 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 4 or int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 3 and int(self.column_select) == 6: #Box 3,6
-                if int(self.row_of_destiny) == 0 or int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
-                    if int(self.column_of_destiny) == 5 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 4 and int(self.column_select) == 2: #Box 4,2
-                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4 :
-                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 4 and int(self.column_select) == 3: #Box 4,3
-                if int(self.row_of_destiny) == 5 or int(self.row_of_destiny) == 4:
-                    if int(self.column_of_destiny) == 2 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 4 and int(self.column_select) == 4: #Box 4,4
-                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 4:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 4:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 5 and int(self.column_select) == 1: #Box 5,1
-                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 5 and int(self.column_select) == 3: #Box 5,3
-                if int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5 or int(self.column_of_destiny) == 4:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 1 or int(self.column_of_destiny) == 5:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 5 and int(self.column_select) == 5: #Box 5,5
-                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 5:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 6 and int(self.column_select) == 0: #Box 6,0
-                if int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
-                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 6 and int(self.column_select) == 3: #Box 6,3
-                if int(self.row_of_destiny) == 6 or int(self.row_of_destiny) == 5:
-                    if int(self.column_of_destiny) == 0 or int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-            elif int(self.row_select) == 6 and int(self.column_select) == 6: #Box 6,6
-                if  int(self.row_of_destiny) == 3 or int(self.row_of_destiny) == 6:
-                    if int(self.column_of_destiny) == 3 or int(self.column_of_destiny) == 6:
-                        return self.add_tab_on_the_board()
-                return self.clean_screen()
-
-    def add_tab_on_the_board(self): #-----------------------Function add tab on the board-----------------------------#
+            self.clean_screen1()
+            print('It not is a list, reenter..')
+            self.movement_adjacent_tiles()
+    #---------------------------------------------------------METHOD ADD TAB ON THE BOARD------------------------------------------------------------------------#
+    def add_tab_on_the_board(self,x2,y2): 
+        """The extracted tab variable saves the selected tab that you want to move to a destination,
+    and is later added to the board."""
         self.token_extracted = self.board[int(self.row_select)][int(self.column_select)].pop()
         self.board[int(self.row_select)][int(self.column_select)].append(' ')
-        self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].pop()
-        self.board[int(self.row_of_destiny)][int(self.column_of_destiny)].append(self.token_extracted)
+        self.board[y2][x2].pop()
+        self.board[y2][x2].append(self.token_extracted)
         self.token_extracted = ''
-        self.matriz = self.board[int(self.row_of_destiny)][int(self.column_of_destiny)]
+        self.matriz = self.board[y2][x2]
         return self.matriz
-        self.input_to_move_token()
-
-    #Method for clean screen
+        self.movement_adjacent_tiles()
+    #--------------------------------------------------METHOD FOR CLEAN SCREEN IN ADJACENT LINES--------------------------------------------------------------------#
     def clean_screen(self):
+        """In first order the general screen cleaning function is called,
+    and as output the function prints the error message that it cannot move on adjacent lines."""
         self.clean_screen1()
         print("Invalid movement, you can only move in adjacent lines")
-        self.input_to_move_token()
-
+        self.movement_adjacent_tiles()
+    #---------------------------------------------------------METHOD FOR DELETE PIECE PLAYER-------------------------------------------------------------------------#
     def delete_player_piece(self):
+        """The inputs received from the player are the coordinates 
+    of the chip to be removed from the opposing player."""
         print('Click on foes piece to remove it.!')
         row1 = input('Enter row delete element: ')
         colum2 = input('Enter colums delete element: ')
@@ -404,17 +291,20 @@ class Board:
             input('Press enter for continue..!')
             self.clean_screen1()
             self.delete_player_piece()
-            
-            
+    #----------------------------------------------------METHOD FOR RANGES OF THE MATRIX--------------------------------------------------------------------------#
     def ranget(self, a, b, x, y):
+        """Block of code that fulfills the function of not leaving the range of the matrix,
+    when adding the positions from the mills function."""
         if y + 4 > a:
             return False
         elif y - 3 < 0:
             return False
         else:
             return True
-   #---------------------------------------------------FUNCTION FOR MILL---------------------------------##
+    #-----------------------------------------------------METHOD HORIZONTAL MILLS METHOD-------------------------------------------------------------------------#
     def checMill_rows(self):
+        """-Going through the matrix and verifying with the iterators the possible mills formed,
+    if a mill has been found, then a request is made to the chip removal function."""
         if self.character == playerList[0].colorTokens:
             w = ['◉']
         else:
@@ -447,7 +337,10 @@ class Board:
                         self.piece = w
                         self.delete_player_piece()
             
-    def checMill_colums(self):
+    #-------------------------------------------------------VERTICAL MILLS METHOD------------------------------------------------------------------#
+    def checMill_colums(self): 
+        """-Going through the matrix and verifying with the iterators the possible mills formed,
+            if a mill has been found, then a request is made to the chip removal function."""
         if self.character == playerList[0].colorTokens:
             w = ['◉']
         else:
@@ -480,18 +373,19 @@ class Board:
                     if self.board[6][4-1] == w:
                         self.piece = w
                         self.delete_player_piece()
-
+    #--------------------------------------------METHOD FOR GENERAL CALL OF ALL THE ABOVE METHODS---------------------------------------------------------#
     def run_move_token(self):
+        """"Call of each of the previous methods in order of execution."""
         self.run_insert_token()
         self.input_to_select_token()
-        self.input_to_move_token()
+        self.movement_adjacent_tiles()
         system('cls')
         self.view_board = ''
         print(self.view)
         while (self.cont_token_table_b + self.cont_token_table_w) != 0:
             self.run_insert_token()
             self.input_to_select_token()
-            self.input_to_move_token()
+            self.movement_adjacent_tiles()
             system('cls')
             self.view_board = ''
             print(self.view)
