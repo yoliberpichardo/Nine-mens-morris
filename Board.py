@@ -14,9 +14,10 @@ class Board:
         self.matriz = []
         self.character = character
         self.token_extracted = ''
-        self.checks = ['0','1','2','3','4','5','6']
+        self.checks = ['0','1','2','3','4','5','6'] 
         self.coordinate = "     0    1    2    3    4    5    6"
         self.piece = 0
+        self.output = ['exit','Exit','EXIT'] 
     #-------------------------------------------------------------METHOD CREATE MATRIX-----------------------------------------------------#
     def table(self):
         """"The matrix is ​​created and adjusted to its corresponding shape."""
@@ -26,7 +27,7 @@ class Board:
 
                      ['  |    ','|  ',[' '],[' '],[' '],'  |  ','  |   '],
                                                                                                                               
-                     [[' '] ,[' '],[' '], '     ',[' '],[' '],[' ']],
+                     [[' '],[' '],[' '], '     ',[' '],[' '],[' ']],
 
                      ['  |    ','|  ',[' '],[' '],[' '],'  |   ',' |   '],
 
@@ -65,14 +66,17 @@ class Board:
     def input_coordinate(self):
         """As input this method receives the, where you want to add a file of said player."""
         self.row_input = input('Enter the row: ')
-        self.column_input = input('Enter the column: ')
-        while self.row_input not in self.checks or self.column_input not in self.checks:
-            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.row_input = input('Enter the row: ')
-            self.column_input = input('Enter the column: ')
+        self.column_input = input('Enter the column: ') 
+        if self.row_input in self.output or self.column_input in self.output:
+            system('cls')
+            exit()
+        elif self.row_input not in self.checks or self.column_input not in self.checks:
             self.clean_screen1()
-        self.matriz = self.board[int(self.row_input)][int(self.column_input)]
-        return self.matriz
+            print('Ohh ray!!, You cannot enter letters or digits of two numbers')
+            self.input_coordinate()
+        else:
+            self.matriz = self.board[int(self.row_input)][int(self.column_input)]
+            return self.matriz
     #-----------------------------------------------METHOD FOR INSERTING THE TAB IN THE BOARD AND SUM OF TABS--------------------------------------------------#
     def insert_token(self,character):
         """Insert token calls the function for entering coordinates,
@@ -138,26 +142,19 @@ class Board:
     def input_to_select_token(self):
         """ According to each player's turn this function asks for the coordinates to select the tile to move
     and then adds it to the board, we added a loop to verify those inputs so they are always valid inputs."""
-        
         print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
         if self.character == playerList[1].colorTokens:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
-            while self.row_select not in self.checks or self.column_select not in self.checks:
+            if self.row_select in self.output or self.column_select in self.output:
+                system('cls')
+                exit()
+            elif self.row_select not in self.checks or self.column_select not in self.checks:
                 self.clean_screen1()
-                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-                self.row_select = input('Enter the row to move the token: ')
-                self.column_select = input('Enter the column to move the token: ')
-                
-            while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
-                self.view_board = ''
-                print(self.view())
-                print('You cant enter that piece here, re-enter the coordinates')
-                self.row_select = input('Enter the row to move the token: ')
-                self.column_select = input('Enter the column to move the token: ')
-
+                print('Ohh ray!, You cannot enter letters or digits of two numbers')
+                self.input_to_select_token()
             if self.board[int(self.row_select)][int(self.column_select)] == ['◉']:
                 self.token_extracted = self.board[int(self.row_select)][int(self.column_select)]
                 return self.token_extracted
@@ -169,17 +166,13 @@ class Board:
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
-            while self.row_select not in self.checks or self.column_select not in self.checks:
+            if self.row_select in self.output or self.column_select in self.output:
+                system('cls')
+                exit()
+            elif self.row_select not in self.checks or self.column_select not in self.checks:
                 self.clean_screen1()
-                print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-                self.row_select = input('Enter the row to move the token: ')
-                self.column_select = input('Enter the column to move the token: ')
-            while not isinstance(self.board[int(self.row_input)][int(self.column_input)],list):
-                self.view_board = ''
-                print(self.view())
-                print('You cant enter that piece here, re-enter the coordinates')
-                self.row_select = input('Enter the row to move the token: ')
-                self.column_select = input('Enter the column to move the token: ')
+                print('Ohh ray!, You cannot enter letters or digits of two numbers')
+                self.input_to_select_token()
             if self.board[int(self.row_select)][int(self.column_select)] == ['◎']:
                 self.token_extracted = self.board[int(self.row_select)][int(self.column_select)]
                 return self.token_extracted
@@ -189,16 +182,15 @@ class Board:
     def cleaning_piece(self):
         """Firstly, the conditional verifies if the piece that a player took is his own property,
     if not, then he will give an alert message that it is not his piece."""
-        
         if self.board[int(self.row_select)][int(self.column_select)] == ['◎']: 
-            print('This is not your file, choose your corresponding file..')
+            print('This is not your file or not a list, choose your corresponding file..')
             input('Press enter for continue:  ')
             system('cls')
             print(self.view())
             print('TURN OF → {}'.format(playerList[0].name))
             self.input_to_select_token()
         else:
-            print('This is not your file, choose your corresponding file..')
+            print('This is not your file or not a list, choose your corresponding file..')
             input('Press enter for continue:  ')
             self.clean_screen1()
             self.input_to_select_token()
@@ -207,45 +199,40 @@ class Board:
         """These data entries will store the coordinates that will be the positions where you want to take the file."""
         self.row_destiny = input('Enter the row of destiny: ')
         self.column_destiny = input('Enter the column of destiny: ')
-        if self.row_destiny not in self.checks or self.column_destiny not in self.checks:
+        if self.row_destiny in self.output or self.column_destiny in self.output:
+            system('cls')
+            exit()
+        elif self.row_destiny not in self.checks or self.column_destiny not in self.checks:
             self.clean_screen1()
             print('Ohh ray!!, You cannot enter letters or digits of two numbers')
-            self.input_to_move_token()
+            self.movement_adjacent_tiles()
         y1 = int(self.row_select)
         x1 = int(self.column_select)
         y2 = int(self.row_destiny)
         x2 = int(self.column_destiny)
         if (self.board[y2][x2] == [' ']):
             if (y1 == 0) or (y1 == 6) or (x1 == 0) or (x1 == 6):#colums 0 and 6, rows 0 and 6
-                if x1 + 3 == x2 and (y1 == y2) or y1 + 3 == y2 and (x1 == x2):
+                if (x1 + 3 == x2 and y1 == y2) or (y1 + 3 == y2 and x1 == x2):
                     self.add_tab_on_the_board(x2,y2)
-                elif x1 - 3 == x2 and (y1 == y2) or y1 - 3 == y2 and (x1 == x2):
+                    return
+                elif (x1 - 3 == x2 and y1 == y2) or (y1 - 3 == y2 and x1 == x2):
                     self.add_tab_on_the_board(x2,y2)
-                else:
-                    self.clean_screen()
-                    
+                    return
+            if (y1 == 2 or y1 == 3) or (y1 == 4) or (x1 == 2 or x1 == 3) or (x1 == 4):#colums 2,4 and 3; rows 2,4 and 3
+                if (x1 + 1 == x2 and y1 == y2) or (y1 + 1 == y2 and x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                    return 
+                elif (x1 - 1 == x2 and y1 == y2) or (y1 - 1 == y2 and x1 == x2):
+                    self.add_tab_on_the_board(x2,y2)
+                    return 
             if (y1 == 1) or (y1 == 5) or (x1 == 1) or (x1 == 5):
-                if x1 + 2 == x2 and (y1 == y2) or y1 + 2 == y2 and (x1 == x2):#colums 1 and 5, rows 1 and 5
+                if (x1 + 2 == x2 and y1 == y2) or (y1 + 2 == y2 and x1 == x2):#colums 1 and 5, rows 1 and 5
                     self.add_tab_on_the_board(x2,y2)
-                elif x1 - 2 == x2 and (y1 == y2) or y1 - 2 == y2 and (x1 == x2):
+                elif (x1 - 2 == x2 and y1 == y2) or (y1 - 2 == y2 and x1 == x2):
                     self.add_tab_on_the_board(x2,y2)
-                else:
-                    self.clean_screen()    
-                    
-            if (y1 == 2) or (y1 == 4) or (x1 == 2) or (x1 == 4):
-                if x1 + 1 == x2 and (y1 == y2) or y1 + 1 == y2 and (x1 == x2):#colums 2,4 and 3; rows 2,4 and 3
-                    self.add_tab_on_the_board(x2,y2)
-                elif x1 - 1 == x2 and (y1 == y2) or y1 - 1 == y2 and (x1 == x2):
-                    self.add_tab_on_the_board(x2,y2)
-                else:
-                    self.clean_screen()
-                    
-            # if y1 == 3 or x1 == 3:
-            #     if x1 + 1 == x2 and (y1 == y2) or y1 + 1 == y2 and (x1 == x2):#colums 2,4 and 3; rows 2,4 and 3
-            #         self.add_tab_on_the_board(x2,y2)
-            #     else:
-            #         self.clean_screen()
-                
+                    return 
+            else:
+                self.clean_screen() 
         else:
             self.clean_screen1()
             print('It not is a list, reenter..')
@@ -261,7 +248,7 @@ class Board:
         self.token_extracted = ''
         self.matriz = self.board[y2][x2]
         return self.matriz
-        self.movement_adjacent_tiles()
+        # self.movement_adjacent_tiles()
     #--------------------------------------------------METHOD FOR CLEAN SCREEN IN ADJACENT LINES--------------------------------------------------------------------#
     def clean_screen(self):
         """In first order the general screen cleaning function is called,
@@ -271,17 +258,19 @@ class Board:
         self.movement_adjacent_tiles()
     #---------------------------------------------------------METHOD FOR DELETE PIECE PLAYER-------------------------------------------------------------------------#
     def delete_player_piece(self):
-        """The inputs received from the player are the coordinates 
-    of the chip to be removed from the opposing player."""
+        """The inputs received from the player are the coordinates of the chip to be removed from the opposing player."""
         print('Click on foes piece to remove it.!')
         row1 = input('Enter row delete element: ')
         colum2 = input('Enter colums delete element: ')
-        while row1 not in self.checks or colum2 not in self.checks:
-            print('Inputs are not correct coordinates, re-enter!')
-            row1 = input('Enter row delete element: ')
-            colum2 = input('Enter colums delete element: ')
+        if row1 in self.output or colum2 in self.output:
+            system('cls')
+            exit()
+        elif row1 not in self.checks or colum2 not in self.checks:
             self.clean_screen1()
+            print('Inputs are not correct coordinates, re-enter!')
+            self.delete_player_piece()
         if self.piece != self.board[int(row1)][int(colum2)]:
+            self.a = self.board[int(row1)][int(colum2)]
             self.matriz = self.board[int(row1)][int(colum2)].pop()
             self.matriz = self.board[int(row1)][int(colum2)].append(' ')
             self.clean_screen1()
@@ -290,8 +279,8 @@ class Board:
             print('Select an opponent tile to remove..')
             input('Press enter for continue..!')
             self.clean_screen1()
-            self.delete_player_piece()
-    #----------------------------------------------------METHOD FOR RANGES OF THE MATRIX--------------------------------------------------------------------------#
+            self.delete_player_piece()          
+    #----------------------------------------------------------METHOD FOR RANGES OF THE MATRIX--------------------------------------------------------------------------#
     def ranget(self, a, b, x, y):
         """Block of code that fulfills the function of not leaving the range of the matrix,
     when adding the positions from the mills function."""
@@ -301,7 +290,7 @@ class Board:
             return False
         else:
             return True
-    #-----------------------------------------------------METHOD HORIZONTAL MILLS METHOD-------------------------------------------------------------------------#
+    #------------------------------------------------------------METHOD HORIZONTAL MILLS METHOD-------------------------------------------------------------------------#
     def checMill_rows(self):
         """-Going through the matrix and verifying with the iterators the possible mills formed,
     if a mill has been found, then a request is made to the chip removal function."""
@@ -368,7 +357,7 @@ class Board:
                     if self.board[2][3] == w:
                         self.piece = w
                         self.delete_player_piece()
-
+                        
                 if self.board[4][3] == w and self.board[5][3] == w:
                     if self.board[6][4-1] == w:
                         self.piece = w
@@ -378,7 +367,7 @@ class Board:
         """"Call of each of the previous methods in order of execution."""
         self.run_insert_token()
         self.input_to_select_token()
-        self.movement_adjacent_tiles()
+        self.movement_adjacent_tiles() 
         system('cls')
         self.view_board = ''
         print(self.view)

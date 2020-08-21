@@ -8,11 +8,12 @@ class Player:
 playerList = []
 #--------------------------------------------------------------METHOD FOR ENTERING NAME OF PLAYERS----------------------------------------------------------------#
 def namesPlayers():
-    """the next loop goes through in range of two and asks player 1 and player 2 for names."""
+    """The next loop goes through in range of two and asks player 1 and player 2 for names."""
     for valPlayer in range(2):
         inputName = input('Enter the name of player{}: '.format(valPlayer + 1))
-        if len(inputName) == 0 or len(inputName) > 8:
-            print('Your name should not exceed more than 9 letters, re-enter your name!')
+        while len(inputName) > 11:
+            system('cls')
+            print('Your name should not exceed more than 11 letters, re-enter your name!')
             inputName = input('Enter the name of player{}: '.format(valPlayer + 1))
         playerList.append(Player(inputName))
     return playerList
