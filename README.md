@@ -23,6 +23,6 @@ To know more how to play or learn more about the game visit this website https:/
 ***
 
  * Jerson Cuevas Diaz.
- * Yoliber Pichardo.
+ 
 
 
