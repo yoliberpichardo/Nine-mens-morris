@@ -1,9 +1,13 @@
 from Board import *
 from players import *
+from time import sleep
+
+
 ##We import methods from the board module and the players module
-print('Welcome to the famous game NINE MENS MORRIS !!'.upper()+'\n')
+print('|-------------------------------------------------| Welcome to the famous game NINE MENS MORRIS |----------------------------------------------------------|'.upper()+'\n')
 ##Game welcome
-input('Press Enter...')
+
+sleep(1)
 
 print(mapper_tokens())
 

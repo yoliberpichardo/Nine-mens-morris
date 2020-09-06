@@ -1,5 +1,6 @@
 from players import *
 from os import system
+from Untitled import *
 class Board:
     def __init__(self,character):
         self.color_token = [['◉'],['◎']]
@@ -17,7 +18,7 @@ class Board:
         self.checks = ['0','1','2','3','4','5','6'] 
         self.coordinate = "     0    1    2    3    4    5    6"
         self.piece = 0
-        self.output = ['exit','Exit','EXIT'] 
+        self.output = ['exit','Exit','EXIT']
     #-------------------------------------------------------------METHOD CREATE MATRIX-----------------------------------------------------#
     def table(self):
         """"The matrix is ​​created and adjusted to its corresponding shape."""
@@ -39,6 +40,7 @@ class Board:
     def view(self):
         """This improved view method adds excellent order and view to the dashboard.""" 
         system('cls')
+        print('|----------------------NINE MEANS MORRIS!--------------------|')
         cont = 0
         """The following conditional causes each player's name and number of chips to be displayed when the chip movement process begins."""
         if playerList[1].colorTokens == '◎' and playerList[1].token == 0:
@@ -56,7 +58,7 @@ class Board:
         self.view_board += '\n'
         self.view_board += self.coordinate
         return self.view_board
-    #------------------------------------------------METHOD FOR CLEANING OF SCREEN----------------------------------------#
+    #------------------------------------------------METHOD FOR CLEANING OF SCREEN---------------------------------------------#
     def clean_screen1(self):
         """We use this method to call it in each case that the screen needs to be cleaned."""
         system('cls')
@@ -105,8 +107,6 @@ class Board:
     def change_turn(self):
         """A request is made to the functions of the mills in this space, then the turn is managed,
     if it happens to be the first player's file then the turn will pass to the second one but it will return to the previous player and so on."""
-        self.checMill_rows()
-        self.checMill_colums()
         while self.character:
             if self.character == playerList[0].colorTokens:
                 self.character = playerList[1].colorTokens
@@ -119,7 +119,7 @@ class Board:
         """The character variable contains the player's chip 1,
     shows its name and then the sum of each player's chips is made."""    
         print(self.view())
-        if self.character == playerList[0].colorTokens:
+        if self.character == playerList[0].colorTokens: 
             print('TURN OF → {}'.format(playerList[0].name))
         while(playerList[0].token + (playerList[1].token)) != 0:
             self.insert_token(self.character)
@@ -145,6 +145,10 @@ class Board:
         print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
+        self.checMill_rows()#MILL PLAYER2
+        if self.piece == ['◎']:
+            self.clean_screen1()
+            print('TURN OF → {}'.format(playerList[0].name))
         if self.character == playerList[1].colorTokens:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -162,7 +166,8 @@ class Board:
             else:
                 self.cleaning_piece()
             """Turn corresponding to player 1 and we show his name."""
-        else:   
+        else:
+            self.checMill_rows()#MILL PLAYER1
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -228,6 +233,7 @@ class Board:
             if (y1 == 1) or (y1 == 5) or (x1 == 1) or (x1 == 5):
                 if (x1 + 2 == x2 and y1 == y2) or (y1 + 2 == y2 and x1 == x2):#colums 1 and 5, rows 1 and 5
                     self.add_tab_on_the_board(x2,y2)
+                    return
                 elif (x1 - 2 == x2 and y1 == y2) or (y1 - 2 == y2 and x1 == x2):
                     self.add_tab_on_the_board(x2,y2)
                     return 
@@ -238,7 +244,7 @@ class Board:
             print('It not is a list, reenter..')
             self.movement_adjacent_tiles()
     #---------------------------------------------------------METHOD ADD TAB ON THE BOARD------------------------------------------------------------------------#
-    def add_tab_on_the_board(self,x2,y2): 
+    def add_tab_on_the_board(self,x2,y2):
         """The extracted tab variable saves the selected tab that you want to move to a destination,
     and is later added to the board."""
         self.token_extracted = self.board[int(self.row_select)][int(self.column_select)].pop()
@@ -248,7 +254,6 @@ class Board:
         self.token_extracted = ''
         self.matriz = self.board[y2][x2]
         return self.matriz
-        # self.movement_adjacent_tiles()
     #--------------------------------------------------METHOD FOR CLEAN SCREEN IN ADJACENT LINES--------------------------------------------------------------------#
     def clean_screen(self):
         """In first order the general screen cleaning function is called,
@@ -258,8 +263,9 @@ class Board:
         self.movement_adjacent_tiles()
     #---------------------------------------------------------METHOD FOR DELETE PIECE PLAYER-------------------------------------------------------------------------#
     def delete_player_piece(self):
-        """The inputs received from the player are the coordinates of the chip to be removed from the opposing player."""
-        print('Click on foes piece to remove it.!')
+        """The inputs received from the player are the coordinates of the chip to be removed from the opposing player.""" 
+        self.clean_screen1()
+        print('Mill formed, click on foes piece to remove it.!')
         row1 = input('Enter row delete element: ')
         colum2 = input('Enter colums delete element: ')
         if row1 in self.output or colum2 in self.output:
@@ -270,11 +276,11 @@ class Board:
             print('Inputs are not correct coordinates, re-enter!')
             self.delete_player_piece()
         if self.piece != self.board[int(row1)][int(colum2)]:
-            self.a = self.board[int(row1)][int(colum2)]
             self.matriz = self.board[int(row1)][int(colum2)].pop()
             self.matriz = self.board[int(row1)][int(colum2)].append(' ')
             self.clean_screen1()
             return self.matriz
+            self.cont+=2
         else:
             print('Select an opponent tile to remove..')
             input('Press enter for continue..!')
@@ -292,7 +298,7 @@ class Board:
             return True
     #------------------------------------------------------------METHOD HORIZONTAL MILLS METHOD-------------------------------------------------------------------------#
     def checMill_rows(self):
-        """-Going through the matrix and verifying with the iterators the possible mills formed,
+        """Going through the matrix and verifying with the iterators the possible mills formed,
     if a mill has been found, then a request is made to the chip removal function."""
         if self.character == playerList[0].colorTokens:
             w = ['◉']
@@ -310,7 +316,7 @@ class Board:
                         if self.board[x][y-2] == w:
                             self.piece = w
                             self.delete_player_piece()
-
+                            
                     if self.board[x][y] and self.board[x][y+1] == w:
                         if self.board[x][y-1] == w:
                             self.piece = w
@@ -325,9 +331,8 @@ class Board:
                     if self.board[3][5 + 1] == w:
                         self.piece = w
                         self.delete_player_piece()
-            
-    #-------------------------------------------------------VERTICAL MILLS METHOD------------------------------------------------------------------#
-    def checMill_colums(self): 
+    # #-------------------------------------------------------VERTICAL MILLS METHOD------------------------------------------------------------------#
+    def checMill_colums(self):
         """-Going through the matrix and verifying with the iterators the possible mills formed,
             if a mill has been found, then a request is made to the chip removal function."""
         if self.character == playerList[0].colorTokens:
