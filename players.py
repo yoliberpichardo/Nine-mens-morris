@@ -15,7 +15,7 @@ def namesPlayers():
             system('cls')
             print('Your name should not exceed more than 11 letters, re-enter your name!')
             inputName = input('Enter the name of player{}: '.format(valPlayer + 1))
-        playerList.append(Player(inputName))
+        playerList.append(Player(inputName.upper()))
     return playerList
 #---------------------------------------------------------------METHOD ASSIGN TAB TO EACH PLAYER--------------------------------------------------------------------#
 def mapper_tokens():

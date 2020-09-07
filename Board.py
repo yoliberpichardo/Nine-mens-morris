@@ -1,6 +1,6 @@
 from players import *
 from os import system
-from Untitled import *
+from time import sleep
 class Board:
     def __init__(self,character):
         self.color_token = [['◉'],['◎']]
@@ -145,7 +145,9 @@ class Board:
         print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
-        self.checMill_rows()#MILL PLAYER2
+        self.checMill_rows()#MILL PLAYER
+        self.checMill_colums()#MILL PLAYER
+        self.player_loses()#loss player
         if self.piece == ['◎']:
             self.clean_screen1()
             print('TURN OF → {}'.format(playerList[0].name))
@@ -167,7 +169,6 @@ class Board:
                 self.cleaning_piece()
             """Turn corresponding to player 1 and we show his name."""
         else:
-            self.checMill_rows()#MILL PLAYER1
             print('TURN OF → {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -279,8 +280,7 @@ class Board:
             self.matriz = self.board[int(row1)][int(colum2)].pop()
             self.matriz = self.board[int(row1)][int(colum2)].append(' ')
             self.clean_screen1()
-            return self.matriz
-            self.cont+=2
+            return self.matriz 
         else:
             print('Select an opponent tile to remove..')
             input('Press enter for continue..!')
@@ -367,6 +367,23 @@ class Board:
                     if self.board[6][4-1] == w:
                         self.piece = w
                         self.delete_player_piece()
+    #-----------------------------------------------------------METHOD FOR PLAYER DEFEAT-----------------------------------------------------------------------------
+    def player_loses(self):
+        """This system makes a secondary route on the board in order to find only two pieces of a player to give as defeated any player."""
+        self.cant_piece = []
+        for rows in self.board:
+            for element in rows:
+                if element[0] == playerList[0].colorTokens or element[0] == playerList[1].colorTokens:
+                    self.cant_piece.append(element[0])
+        if self.cant_piece.count(playerList[0].colorTokens) == 2:
+            system('cls')
+            print('😄---YOU LOSSES! → {}'.format(playerList[0].name))
+            exit()         
+        else:
+            if self.cant_piece.count(playerList[1].colorTokens) == 2:
+                system('cls')
+                print('😄---YOU LOSSES! → {}'.format(playerList[1].name))
+                exit()
     #--------------------------------------------METHOD FOR GENERAL CALL OF ALL THE ABOVE METHODS---------------------------------------------------------#
     def run_move_token(self):
         """"Call of each of the previous methods in order of execution."""
@@ -376,7 +393,7 @@ class Board:
         system('cls')
         self.view_board = ''
         print(self.view)
-        while (self.cont_token_table_b + self.cont_token_table_w) != 0:
+        while(self.cont_token_table_b + self.cont_token_table_w) != 0:
             self.run_insert_token()
             self.input_to_select_token()
             self.movement_adjacent_tiles()
