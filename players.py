@@ -2,8 +2,9 @@ from os import system
 class Player:
     def __init__(self, name):
         self.name = name
-        self.token = 3
+        self.token = 6
         self.colorTokens = ''
+        
 
 playerList = []
 #--------------------------------------------------------------METHOD FOR ENTERING NAME OF PLAYERS----------------------------------------------------------------#

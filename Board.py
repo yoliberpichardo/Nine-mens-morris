@@ -1,7 +1,7 @@
 from players import *
 from os import system
-from time import sleep
 class Board:
+    const_counter = 0
     def __init__(self,character):
         self.color_token = [['◉'],['◎']]
         self.row_input = ''
@@ -10,8 +10,6 @@ class Board:
         self.column_destiny = ''
         self.board = []
         self.view_board = '' 
-        self.cont_token_table_w = 0
-        self.cont_token_table_b = 0
         self.matriz = []
         self.character = character
         self.token_extracted = ''
@@ -19,7 +17,8 @@ class Board:
         self.coordinate = "     0    1    2    3    4    5    6"
         self.piece = 0
         self.output = ['exit','Exit','EXIT']
-    #-------------------------------------------------------------METHOD CREATE MATRIX-----------------------------------------------------#
+        self.ubicationMill = []
+    #------------------------------------------------------------METHOD CREATE MATRIX-----------------------------------------------------#
     def table(self):
         """"The matrix is ​​created and adjusted to its corresponding shape."""
         self.board = [[ [' '],'-----','-----',[' '],'-----','-----',[' '] ],
@@ -40,15 +39,15 @@ class Board:
     def view(self):
         """This improved view method adds excellent order and view to the dashboard.""" 
         system('cls')
-        print('|----------------------NINE MEANS MORRIS!--------------------|')
+        print('                           NINE MEANS MORRIS                           ')
         cont = 0
         """The following conditional causes each player's name and number of chips to be displayed when the chip movement process begins."""
         if playerList[1].colorTokens == '◎' and playerList[1].token == 0:
-            print(playerList[0].name,'→',playerList[0].token, playerList[0].colorTokens)
-            print(playerList[1].name,'→',playerList[1].token, playerList[1].colorTokens)
+            print(playerList[0].name,'--→',playerList[0].token, playerList[0].colorTokens)
+            print(playerList[1].name,'--→',playerList[1].token, playerList[1].colorTokens)
         else:
-            print(playerList[0].name, playerList[0].colorTokens * playerList[0].token,'→', playerList[0].token)
-            print(playerList[1].name, playerList[1].colorTokens * playerList[1].token,'→', playerList[1].token)
+            print(playerList[0].name, playerList[0].colorTokens * playerList[0].token,'--→', playerList[0].token)
+            print(playerList[1].name, playerList[1].colorTokens * playerList[1].token,'--→', playerList[1].token)
         for element in self.board:
             self.view_board += '\n'
             self.view_board += str(cont) + '  '
@@ -93,11 +92,6 @@ class Board:
         if self.board[int(self.row_input)][int(self.column_input)] == [' ']:
             self.matriz.pop()
             self.matriz.append(self.character)
-            if self.character == '◉':
-                self.cont_token_table_w += 1
-            else:
-                self.cont_token_table_b += 1
-            return self.matriz
         else:
             self.view_board = ''
             print(self.view())
@@ -120,7 +114,7 @@ class Board:
     shows its name and then the sum of each player's chips is made."""    
         print(self.view())
         if self.character == playerList[0].colorTokens: 
-            print('TURN OF → {}'.format(playerList[0].name))
+            print('TURN OF ---→ {}'.format(playerList[0].name))
         while(playerList[0].token + (playerList[1].token)) != 0:
             self.insert_token(self.character)
             if self.character == playerList[0].colorTokens:
@@ -131,26 +125,23 @@ class Board:
             print(self.view())
             self.change_turn()
             if self.character == playerList[1].colorTokens:
-                print('TURN OF → {}'.format(playerList[1].name))
+                print('TURN OF ---→ {}'.format(playerList[1].name))
                 self.view_board = ''
             else:
-                print('TURN OF → {}'.format(playerList[0].name))
+                print('TURN OF ---→ {}'.format(playerList[0].name))
                 self.view_board = ''
         self.change_turn()
         return self.matriz
     #--------------------------------------------------METHOD IN CHARGE OF THE FILE MOVEMENT---------------------------------------------------------------#
     def input_to_select_token(self):
-        """ According to each player's turn this function asks for the coordinates to select the tile to move
-    and then adds it to the board, we added a loop to verify those inputs so they are always valid inputs."""
+        """ According to each player's turn this function asks for the coordinates to select the tile to move and then adds it to the board."""
         print('Select a piece on board to move')
         self.matriz = []
         self.view_board = ''
-        self.checMill_rows()#MILL PLAYER
-        self.checMill_colums()#MILL PLAYER
-        self.player_loses()#loss player
+        self.player_loses()#correct
         if self.piece == ['◎']:
             self.clean_screen1()
-            print('TURN OF → {}'.format(playerList[0].name))
+            print('TURN OF ---→ {}'.format(playerList[0].name))
         if self.character == playerList[1].colorTokens:
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
@@ -164,12 +155,11 @@ class Board:
             if self.board[int(self.row_select)][int(self.column_select)] == ['◉']:
                 self.token_extracted = self.board[int(self.row_select)][int(self.column_select)]
                 return self.token_extracted
-                self.run_insert_token()
             else:
                 self.cleaning_piece()
             """Turn corresponding to player 1 and we show his name."""
         else:
-            print('TURN OF → {}'.format(playerList[1].name))
+            print('TURN OF ---→ {}'.format(playerList[1].name))
             self.row_select = input('Enter the row to move the token: ')
             self.column_select = input('Enter the column to move the token: ')
             if self.row_select in self.output or self.column_select in self.output:
@@ -193,7 +183,7 @@ class Board:
             input('Press enter for continue:  ')
             system('cls')
             print(self.view())
-            print('TURN OF → {}'.format(playerList[0].name))
+            print('TURN OF ---→ {}'.format(playerList[0].name))
             self.input_to_select_token()
         else:
             print('This is not your file or not a list, choose your corresponding file..')
@@ -280,12 +270,12 @@ class Board:
             self.matriz = self.board[int(row1)][int(colum2)].pop()
             self.matriz = self.board[int(row1)][int(colum2)].append(' ')
             self.clean_screen1()
-            return self.matriz 
+            return self.matriz
         else:
             print('Select an opponent tile to remove..')
             input('Press enter for continue..!')
             self.clean_screen1()
-            self.delete_player_piece()          
+            self.delete_player_piece() 
     #----------------------------------------------------------METHOD FOR RANGES OF THE MATRIX--------------------------------------------------------------------------#
     def ranget(self, a, b, x, y):
         """Block of code that fulfills the function of not leaving the range of the matrix,
@@ -299,7 +289,7 @@ class Board:
     #------------------------------------------------------------METHOD HORIZONTAL MILLS METHOD-------------------------------------------------------------------------#
     def checMill_rows(self):
         """Going through the matrix and verifying with the iterators the possible mills formed,
-    if a mill has been found, then a request is made to the chip removal function."""
+        if a mill has been found, then a request is made to the chip removal function."""
         if self.character == playerList[0].colorTokens:
             w = ['◉']
         else:
@@ -310,63 +300,99 @@ class Board:
                     if self.board[x][y] and self.board[x][y+3] == w:
                         if self.board[x][y-3] == w:
                             self.piece = w
-                            self.delete_player_piece()
-                            
-                    if self.board[x][y] and self.board[x][y+2] == w:
+                            if self.saved_mill([[x,y],[x,y+3],[x,y-3]]) == True:
+                                return
+                            else:
+                                self.ubicationMill.append([[x,y],[x,y+3],[x,y-3]])
+                                self.delete_player_piece()
+                                
+                    elif self.board[x][y] and self.board[x][y+2] == w:
                         if self.board[x][y-2] == w:
                             self.piece = w
-                            self.delete_player_piece()
+                            if self.saved_mill([[x,y],[x,y+2],[x,y-2]]) == True:
+                                return 
+                            else:
+                                self.ubicationMill.append([[x,y],[x,y+2],[x,y-2]])
+                                self.delete_player_piece()
+
                             
-                    if self.board[x][y] and self.board[x][y+1] == w:
-                        if self.board[x][y-1] == w:
-                            self.piece = w
-                            self.delete_player_piece()
-                    
-                if self.board[3][0] == w and self.board[3][0+1] == w:
-                    if self.board[3][1+1] == w:
-                        self.piece = w
-                        self.delete_player_piece()
+                            
+                    # elif self.board[x][y] and self.board[x][y+1] == w:
+                    #     if self.board[x][y-1] == w:
+                    #         self.piece = w
+                    #         self.ubicationMill.append([self.board[2][2],self.board[2][3],self.board[2][4]])
+                    #         self.delete_player_piece()    
+                            
+    #             if self.board[3][0] == w and self.board[3][0+1] == w:
+    #                 if self.board[3][1+1] == w:
+    #                     self.piece = w
+    #                     self.delete_player_piece()
 
-                if self.board[3][4] == w and self.board[3][4+1] == w:
-                    if self.board[3][5 + 1] == w:
-                        self.piece = w
-                        self.delete_player_piece()
-    # #-------------------------------------------------------VERTICAL MILLS METHOD------------------------------------------------------------------#
-    def checMill_colums(self):
-        """-Going through the matrix and verifying with the iterators the possible mills formed,
-            if a mill has been found, then a request is made to the chip removal function."""
-        if self.character == playerList[0].colorTokens:
-            w = ['◉']
-        else:
-            w = ['◎']
-        for x in range(len(self.board)):
-            for y in range(len(self.board)):
-                if y != 3:
-                    if x + 3 < len(self.board):
-                        if self.board[x][y] == w and self.board[x+3][y] == w:
-                            if self.board[x-3][y] == w:
-                                self.piece = w
-                                self.delete_player_piece()
+    #             if self.board[3][4] == w and self.board[3][4+1] == w:
+    #                 if self.board[3][5 + 1] == w:
+    #                     self.piece = w
+    #                     self.delete_player_piece()
+    # # #-------------------------------------------------------VERTICAL MILLS METHOD------------------------------------------------------------------#
+    # def checMill_colums(self):
+    #     """-Going through the matrix and verifying with the iterators the possible mills formed,
+    #         if a mill has been found, then a request is made to the chip removal function."""
+    #     if self.character == playerList[0].colorTokens:
+    #         w = ['◉']
+    #     else:
+    #         w = ['◎']
+    #     for x in range(len(self.board)):
+    #         for y in range(len(self.board)):
+    #             if y != 3:
+    #                 if x + 3 < len(self.board):
+    #                     if self.board[x][y] == w and self.board[x+3][y] == w:
+    #                         if self.board[x-3][y] == w:
+    #                             self.piece = w
+    #                             self.delete_player_piece()
 
-                        if self.board[x][y] == w and self.board[x+2][y] == w:
-                            if self.board[x-2][y] == w:
-                                self.piece = w
-                                self.delete_player_piece()
+    #                     if self.board[x][y] == w and self.board[x+2][y] == w:
+    #                         if self.board[x-2][y] == w:
+    #                             self.piece = w
+    #                             self.delete_player_piece()
 
-                        if self.board[x][y] == w and self.board[x+1][y] == w:
-                            if self.board[x-1][y] == w:
-                                self.piece = w
-                                self.delete_player_piece()
+    #                     if self.board[x][y] == w and self.board[x+1][y] == w:
+    #                         if self.board[x-1][y] == w:
+    #                             self.piece = w
+    #                             self.delete_player_piece()
 
-                if self.board[0][3] == w and self.board[1][3] == w:
-                    if self.board[2][3] == w:
-                        self.piece = w
-                        self.delete_player_piece()
+    #             if self.board[0][3] == w and self.board[1][3] == w:
+    #                 if self.board[2][3] == w:
+    #                     self.piece = w
+    #                     self.delete_player_piece()
                         
-                if self.board[4][3] == w and self.board[5][3] == w:
-                    if self.board[6][4-1] == w:
-                        self.piece = w
-                        self.delete_player_piece()
+    #             if self.board[4][3] == w and self.board[5][3] == w:
+    #                 if self.board[6][4-1] == w:
+    #                     self.piece = w
+    # 
+    #                     self.delete_player_piece()
+    
+    #----------------------------------------------------------METHOD SAVES ONLY ONE TIME EACH LOCATION---------------------------------------------------------------
+    def saved_mill(self,ubications):
+        """Method that verifies saved locations of each mill so as not to over-save the same locations so many times"""
+        for s in range(len(self.ubicationMill)):
+            if self.ubicationMill[s] == ubications:
+                return True
+            else:
+                return False
+             
+            
+            
+            
+    #-----------------------------------------------------METHOD OF VERIFYING MILL LOCATIONS ON THE DASHBOARD -------------------------------------------------------
+    def mill_formed_(self):
+        """Each variable represents each value of the locations and checks if those coordinates on the board belong to 3 pieces of a player"""
+        for c in range(len(self.ubicationMill)):
+            first = self.ubicationMill[c][0]
+            second = self.ubicationMill[c][1]
+            third = self.ubicationMill[c][2]
+            if self.board[first[0]][first[1]] != self.board[second[0]][second[1]] and self.board[first[0]][first[1]] != self.board[third[0]][third[1]]:
+                self.ubicationMill.pop(c)
+            else:
+                return
     #-----------------------------------------------------------METHOD FOR PLAYER DEFEAT-----------------------------------------------------------------------------
     def player_loses(self):
         """This system makes a secondary route on the board in order to find only two pieces of a player to give as defeated any player."""
@@ -377,26 +403,20 @@ class Board:
                     self.cant_piece.append(element[0])
         if self.cant_piece.count(playerList[0].colorTokens) == 2:
             system('cls')
-            print('😄---YOU LOSSES! → {}'.format(playerList[0].name))
+            print('😄---YOU LOSS!----→ {}'.format(playerList[0].name))
             exit()         
         else:
             if self.cant_piece.count(playerList[1].colorTokens) == 2:
                 system('cls')
-                print('😄---YOU LOSSES! → {}'.format(playerList[1].name))
+                print('😄---YOU LOSS!----→ {}'.format(playerList[1].name))
                 exit()
     #--------------------------------------------METHOD FOR GENERAL CALL OF ALL THE ABOVE METHODS---------------------------------------------------------#
-    def run_move_token(self):
-        """"Call of each of the previous methods in order of execution."""
-        self.run_insert_token()
-        self.input_to_select_token()
-        self.movement_adjacent_tiles() 
-        system('cls')
-        self.view_board = ''
-        print(self.view)
-        while(self.cont_token_table_b + self.cont_token_table_w) != 0:
+    def run_move_token(self,const_count):
+        """Call of each of the previous methods in order of execution."""
+        while const_count != 0:
             self.run_insert_token()
+            self.checMill_rows()
+            self.mill_formed_()#probando, bien aca !!
             self.input_to_select_token()
             self.movement_adjacent_tiles()
-            system('cls')
-            self.view_board = ''
-            print(self.view)
+            self.const_counter += 1       
