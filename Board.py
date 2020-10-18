@@ -86,8 +86,7 @@ class Board:
         self.matriz = self.board[int(self.row_input)][int(self.column_input)]
         if self.board[int(self.row_input)][int(self.column_input)] != ['']:
             self.board[int(self.row_input)][int(self.column_input)].pop
-            print(self.matriz)
-
+            print(self.matriz
     #Method for the player to insert a toke
     def insert_token(self,character):
         self.input_coordinate()
