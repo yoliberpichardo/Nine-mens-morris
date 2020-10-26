@@ -1,14 +1,14 @@
 from Board import *
 from players import *
-print('Welcome to the famous game NINE MENS MORRIS !!'.upper()+'\n')
-print('The gameplay is: 1 → player vs boot, 2 → player vs player'.upper()+'\n')
-
-input('Press Enter...')
+##We import methods from the board module and the players module
+print('|------------------ Welcome to the famous game NINE MENS MORRIS ---------------------|'.upper()+'\n')
+##Game welcome
 
 print(mapper_tokens())
 
 table_p = Board(playerList[0].colorTokens)
 table_p.table()
-table_p.run_move_token()
+table_p.run_move_token(const_count = 18)
 print(table_p.view())
 
+#------------------------------------------------------------------MAIN MODULE---------------------------------------------------------------------------------#

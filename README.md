@@ -19,10 +19,10 @@ To know more how to play or learn more about the game visit this website https:/
 4. Later the game begins.
 ## Pre requirements:
 #### System Operative: Windows 10.
-## AUTHORS OR DEVELOPERS OF THE GAME:
+## AUTHOR OR DEVELOPER OF THE GAME:
 ***
 
  * Jerson Cuevas Diaz.
- * Yoliber Pichardo.
+ 
 
 
