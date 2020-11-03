@@ -264,20 +264,28 @@ class Board:
         if row1 in self.output or colum2 in self.output:
             system('cls')
             exit()
-        elif row1 not in self.checks or colum2 not in self.checks:
+        if row1 not in self.checks or colum2 not in self.checks:
             self.clean_screen1()
             print('Inputs are not correct coordinates, re-enter!')
+            input('-Press enter for continue..')
             self.delete_player_piece()
-        elif self.piece != self.board[int(row1)][int(colum2)]:
-            self.matriz = self.board[int(row1)][int(colum2)].pop()
-            self.matriz = self.board[int(row1)][int(colum2)].append(' ')
-            self.clean_screen1()
-            return self.matriz
         else:
-            print('Select an opponent tile to remove..')
-            input('Press enter for continue..!')
-            self.clean_screen1()
-            self.delete_player_piece() 
+            if self.board[int(row1)][int(colum2)] == self.color_token[0] or self.board[int(row1)][int(colum2)] == self.color_token[1] :
+                if self.piece != self.board[int(row1)][int(colum2)]:
+                    self.matriz = self.board[int(row1)][int(colum2)].pop()
+                    self.matriz = self.board[int(row1)][int(colum2)].append(' ')
+                    self.clean_screen1()
+                    return self.matriz
+                else:
+                    self.clean_screen1()
+                    print('Select an opponent tile to remove..')
+                    input('-Press enter for continue..')
+                    self.delete_player_piece()
+            else:
+                self.clean_screen1()
+                print('This is not a token, you must select a token from your opposing player')
+                input('-Press enter for continue..')
+                self.delete_player_piece()
     #----------------------------------------------------------METHOD FOR RANGES OF THE MATRIX------------------------------------------------------------------#
     def ranget(self, a, b, x, y):
         """Block of code that fulfills the function of not leaving the range of the matrix,
