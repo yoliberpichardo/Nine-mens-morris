@@ -399,7 +399,7 @@ class Board:
                         else:
                             self.ubicationMill.append([[0,3],[1,3],[2,3]])
                             self.delete_player_piece()
-                        
+
                 elif self.board[4][3] == w and self.board[5][3] == w:
                     if self.board[6][4-1] == w:
                         self.piece = w
